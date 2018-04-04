@@ -204,7 +204,7 @@ html, body {
 .tabcontent {
     height: 95%;
     color: white;
-    width: 90%;
+    width: 90%;    /*调整了宽度*/
     display: none;
     padding: auto;
     overflow-x: hidden;
@@ -214,11 +214,12 @@ html, body {
 
 .tabcontent a{
     width: 75%;
-    height: 30px;
+    height: 45px;
     background-color: inherit;
     color: white;
     transition: 0.1s;
-    font-size: large;
+    /*font-size: large;*/
+    font-size: 30px;    /*於：修改了样式*/
     text-align: left;
 }
 
@@ -268,12 +269,6 @@ ul#resultlineup{
     background-color: indianred;
 }
 
-
-
-
-
-
-
 .searcharea {
     overflow: hidden;
     background-color: inherit;
@@ -291,3 +286,23 @@ ul#resultlineup{
     margin-left: 28px;
     font-size: 17px;
 }
+
+/*於： 下面这些是我写的*/
+div#startTime{float: right;}
+
+div#endTime{float: right;}
+
+table#dateFilter {
+    width: 50%;
+    /*height: 66px;*/   /*自动调整高度，不需要设置固定高度*/
+    padding-left: 32px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    background-color: inherit;
+    color: white;
+    font-size: large;
+    text-align: left;
+}
+
+#fromDate{float: right;}
+#toDate{float: right;}

@@ -1,6 +1,8 @@
 var eventList = [];
 
 function allLine(){
+    $("#showMyList").empty();   //每次刷新list前清空当前list
+    eventList=[];
     $.post("http://localhost/comp208/PHP/getEventList.php",{userID:thisUserID, orderBy:"startTime", userList:true},
     function(data){
         console.log(data);
@@ -26,7 +28,9 @@ function allLine(){
             var thisLocationID = eventList[i].locationID;
             var thisInnerID = eventList[i].innerID;
             var thisEventName = eventList[i].eventName;
-            text = text + newLine(thisInnerID, thisEventName, thisLocationID);
+            var thisStartTime = eventList[i].startTime;
+            var thisEndTime = eventList[i].endTime;
+            text = text + newLine(thisInnerID, thisEventName, thisStartTime, thisEndTime, thisLocationID);
         }
         //document.getElementById("showMyList").innerText = text;
         $("#showMyList").html(text);
@@ -72,11 +76,17 @@ function loadList(){
 }*/
 
 function thisTime(id){
-    document.getElementById(id).innerText = eventList[id].startTime + " - " + eventList[id].endTime;
+    var listID=parseInt(id.substring(1));
+    var timeText = 'Start: '+eventList[listID].startTime+'<br>End: &nbsp'+eventList[listID].endTime;
+    document.getElementById(id).innerHTML = timeText;
+    $("#"+id).css("font-size","large");
+    //document.getElementById(id).innerText = eventList[listID].startTime + " - " + eventList[listID].endTime;
 }
 
 function godef(id){
-    document.getElementById(id).innerText = eventList[id].eventName;
+    var listID=parseInt(id.substring(1));
+    document.getElementById(id).innerText = eventList[listID].eventName;
+    $("#"+id).css("font-size","30px");
 }
 
 function deleEvent(id) {
@@ -84,8 +94,17 @@ function deleEvent(id) {
     allLine();
 }
 
-function newLine(thisInnerID, thisEventName, thisLocationID){
+function newLine(thisInnerID, thisEventName, thisStartTime, thisEndTime, thisLocationID){
     var hereID = "M"+thisInnerID;
-    var quest = "<li><a id= "+hereID+" onclick=\"addSite("+thisLocationID+","+thisInnerID+")\" onmouseover=\"thisTime("+hereID+")\" onmouseout=\"godef("+hereID+")\" ondblclick= \"deleEvent(" + thisInnerID + ")\">"+thisEventName+"</a></li>";
+    var quest = '<li>'+
+                    '<a id= '+hereID+ ' href="javascript:void(0)"'+             //於:添加了href="javascript:void(0)"，鼠标移动到上面会有手指效果
+                    ' onclick="addSite('+thisLocationID+','+thisInnerID+')"'+   //於：修改了格式
+                    ' onmouseover="thisTime('+'\''+hereID+'\''+')"'+
+                    ' onmouseout="godef('+'\''+hereID+'\''+')"'+                //於：你在这里传入的是M+ID，上面函数直接调用了ID，这里参数加上了‘’
+                    ' ondblclick= "deleEvent(' + thisInnerID + ')">'+           //上面函数也改了，去掉了M
+                    thisEventName+'</a>'+
+                    /*'<br>Start: '+'<div id="startTime">'+thisStartTime+'</div>'+    //於：添加了div和id用于时间筛选
+                    '<br>End: '+'<div id="endTime">'+thisEndTime+'</div>'+'</a>'+*/     //注释掉的部分用于直接显示时间，不用鼠标移上去（待定）
+                '</li>';
     return quest;
 }

@@ -12,10 +12,10 @@
 <script src = myList.js></script>
 <script src = logIn.js></script>
 <script src = logOut.js></script>
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBn_FQZui6V8Xe-70bjODMQc93WcWRm_CQ&callback=initMap"></script>
 <script src="http://cdn.static.runoob.com/libs/jquery/1.10.2/jquery.min.js"></script>
 <script src="jquery.cookie.js"></script>
 <script src = cookie.js></script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBn_FQZui6V8Xe-70bjODMQc93WcWRm_CQ&callback=initMap"></script>
 
 <body>
 <div id = "login">
@@ -71,15 +71,28 @@
     <a href="javascript:void(0)" class="openbtn" id="openbtn" onclick="openNav()">\></a>
     <div id="SidenavCon" class="sidenavcon" style="display: none">
         <div class="tab">
-            <button class="tablinks" onclick="openForm(event, 'mylist'); allLine();">MYLIST</button>
+            <button class="tablinks" onclick="openForm(event, 'myListMenu'); allLine();">MYLIST</button>
             <button class="tablinks" onclick="openForm(event, 'search')">SEARCH</button>
             <button class="tablinks" onclick="openForm(event, 'setting')">SETTING</button>
         </div>
 
 
-        <div id="mylist" class="tabcontent">
-            <!--<script>allLine();</script>-->
+        <div id="myListMenu" class="tabcontent">        <!--於：此div原本id是mylist，和下面myList易混淆，修改，74行修改-->
+            <table id="dateFilter">                         <!--於：时间筛选器-->
+                <tr>
+                    <td><labelfor="fromDate">From：</label></td>
+                    <td><input id="fromDate" type="date" max="" onchange="setMinMaxDate('from')"/></td>
+                </tr>
+                <tr>
+                    <td><label for="toDate">To：</label></td>
+                    <td><input id="toDate" type="date" min="" onchange="setMinMaxDate('to')"/></td>
+                </tr>
+            </table>
             <ul class="myList" id = "showMyList"></ul>
+            <script>
+                allLine();
+                $("#myListMenu").css("display","block");    //於：开始时自动加载一次myList
+            </script>
         </div>
 
         <div id="search" class="tabcontent">

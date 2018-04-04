@@ -40,19 +40,23 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
 
 //add new tags to the map with description
 function addSite(locID, inID){
-    $.post("http://localhost/comp208/PHP/getLocationInfo.php",{locationID: locID},locInfo);
-    thisLoc = locInfo.split(";");
-    var locName = thisLoc[0];
-    var thelng = thisLoc[1];
-    var thelat = thisLoc[2];
-    var startTime = thisLoc[3];
-    var endTime = thisLoc[4];
-    var pos = {
-        lat : thelat,
-        lng: thelng
-    }
-    addMarker(pos, locName, inID, startTime, endTime);
-    map.setCenter(pos);
+    $.post("http://localhost/comp208/PHP/getLocationInfo.php",{locationID: locID},          //於：修改返回值的处理
+    function(locInfo){
+        thisLoc = locInfo.split(";");
+        var locName = parseFloat(thisLoc[0]);       //於：字符串转float，考虑数据库修改数据类型
+        var thelng = parseFloat(thisLoc[1]);
+        var thelat = parseFloat(thisLoc[2]);//thisLoc[2];
+        var startTime = "asd";//thisLoc[3];
+        var endTime = "end";//thisLoc[4];   这里还没改完对应myList.js 101行也要修改
+        var pos = {
+            lat : thelat,
+            lng: thelng
+        }
+        console.log(thelng+","+thelat);
+        addMarker(pos, locName, inID, startTime, endTime);
+        map.setCenter(pos);
+    });
+    
 }
 
 //used to add description marker to the map
