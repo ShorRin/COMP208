@@ -1,6 +1,7 @@
 
 var justName;
 function logOut() {
+    delAllCookie(); //於：logout时清除所有cookie，reload后显示登录界面
     window.location.reload();
 }
 

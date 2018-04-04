@@ -1,24 +1,27 @@
 var eventList = [];
 
 function loadList(){
-    $.post("http://localhost/comp208/PHP/getMyList.php",{userID:thisUserID, orderBy:"startTime"},data);
-    strings = data.split(";");
-    for(var i = 0; i<strings.length; i++){
-        thisEvent = strings[i].split(",");
-        var event = {
-            innerID: i,
-            eventID: thisEvent[0],
-            eventName: thisEvent[1],
-            founderName: thisEvent[2],
-            startTime: thisEvent[3],
-            endTime: thisEvent[4],
-            popularity: thisEvent[5],
-            locationID: thisEvent[6],
-            brief: thisEvent[7],
-            isAcademic: thisEvent[8]
+    $.post("http://localhost/comp208/PHP/getEventList.php",{userID:thisUserID, orderBy:"startTime", userList:true},
+        function(data){
+        console.log(data);
+        strings = data.split(";");
+        for(var i = 0; i<strings.length; i++){
+            thisEvent = strings[i].split(",");
+            var event = {
+                innerID: i,
+                eventID: thisEvent[0],
+                eventName: thisEvent[1],
+                founderName: thisEvent[2],
+                startTime: thisEvent[3],
+                endTime: thisEvent[4],
+                popularity: thisEvent[5],
+                locationID: thisEvent[6],
+                brief: thisEvent[7],
+                isAcademic: thisEvent[8]
+            }
+            eventList.push(event);
         }
-        eventList.push(event);
-    }
+    });
 }
 
 

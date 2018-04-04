@@ -14,8 +14,18 @@
 <script src = logOut.js></script>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBn_FQZui6V8Xe-70bjODMQc93WcWRm_CQ&callback=initMap"></script>
 <script src="http://cdn.static.runoob.com/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="jquery.cookie.js"></script>
+<script src = cookie.js></script>
+
 <body>
 <div id = "login">
+    <script>
+        if(getCookie("userID")!=undefined&&getCookie("userID")!="null"){
+            $("#login").hide();
+        }else{
+            $("#login").show();
+        }
+    </script>
         <div class="form">
             <div class="register-form" id="2" style="display: none;">
                 <input type="text" placeholder="name" id="unamereg" name="unamereg"/>
@@ -27,7 +37,7 @@
             <div class="login-form" id="1" style="display: block;">
                 <input type="text" placeholder="username" id="unamein" name="unamein"/>
                 <input type="password" placeholder="password" id="pswin" name="pswin"/>
-                <button onclick="closeUp()">login</button>
+                <button id="loginButton"onclick="closeUp()">login</button>  <!--於：添加了ID，用于登录验证时把文字变成Connecting...-->
                 <p class="message">Not registered? <a href="javascript:void(0) " onclick="changeForm()">Create an account</a></p>
             </div>
         </div>
