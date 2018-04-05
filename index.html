@@ -73,12 +73,51 @@
     <div id="SidenavCon" class="sidenavcon" style="display: none">
         <div class="tab">
             <button class="tablinks" onclick="openForm(event, 'myListMenu'); allLine();">MYLIST</button>
-            <button class="tablinks" onclick="openForm(event, 'search')">SEARCH</button>
-            <button class="tablinks" onclick="openForm(event, 'setting')">SETTING</button>
+            <button class="tablinks" onclick="openForm(event, 'allListMenu');allEventsList();">ALL EVENTS</button>    <!--於：改名-->
+            <button class="tablinks" onclick="openForm(event, 'popularMenu')">POPULAR</button>      <!--於：改名-->
         </div>
 
 
         <div id="myListMenu" class="tabcontent">        <!--於：此div原本id是mylist，和下面myList易混淆，修改，74行修改-->
+            <table id="dateFilter">                         <!--於：时间筛选器-->
+                <tr>
+                    <td><labelfor="fromDate">From：</label></td>
+                    <td><input id="fromDate" type="date" max="" onchange="setMinMaxDate(1,'from')"/></td>
+                </tr>
+                <tr>
+                    <td><label for="toDate">To：</label></td>
+                    <td><input id="toDate" type="date" min="" onchange="setMinMaxDate(1,'to')"/></td>
+                </tr>
+                <script>getDateFilterCookie();</script>
+            </table>
+            <div class="searcharea" >
+                <input type="text" placeholder="Search..." onkeyup="search(this.value)">
+            </div>
+            <ul id = "showMyList" class="myList"></ul>
+            <script>
+                allLine();
+                $("#myListMenu").css("display","block");    //於：开始时自动加载一次myList
+            </script>
+        </div>
+
+        <div id="allListMenu" class="tabcontent">
+            <table id="dateFilter">                         <!--於：时间筛选器-->
+                <tr>
+                    <td><label for="fromDate2">From：</label></td>
+                    <td><input id="fromDate2" type="date" max="" onchange="setMinMaxDate(2,'from')"/></td>
+                </tr>
+                <tr>
+                    <td><label for="toDate2">To：</label></td>
+                    <td><input id="toDate2" type="date" min="" onchange="setMinMaxDate(2,'to')"/></td>
+                </tr>
+            </table>
+            <div class="searcharea" >
+                <input type="text" placeholder="Search..." onkeyup="search(this.value)">
+            </div>
+            <ul id = "showAllEventsList" class="allEventsList"></ul>
+        </div>
+
+        <div id="popularMenu" class="tabcontent">
             <table id="dateFilter">                         <!--於：时间筛选器-->
                 <tr>
                     <td><labelfor="fromDate">From：</label></td>
@@ -88,27 +127,11 @@
                     <td><label for="toDate">To：</label></td>
                     <td><input id="toDate" type="date" min="" onchange="setMinMaxDate('to')"/></td>
                 </tr>
-                <script>getDateFilterCookie();</script>
             </table>
-            <ul class="myList" id = "showMyList"></ul>
-            <script>
-                allLine();
-                $("#myListMenu").css("display","block");    //於：开始时自动加载一次myList
-            </script>
-        </div>
-
-        <div id="search" class="tabcontent">
-            <div class="searcharea" style="position: fixed">
+            <div class="searcharea" >
                 <input type="text" placeholder="Search..." onkeyup="search(this.value)">
             </div>
-            <div id="liveresult">
-                <ul id = "resultlineup"></ul>
-            </div>
-        </div>
-
-        <div id="setting" class="tabcontent">
-            <h3>Setting</h3>
-            <p>Setting part</p>
+            <ul id = "showPopularList" class="popularList"></ul>
         </div>
     </div>
 </div>

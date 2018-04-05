@@ -17,5 +17,7 @@ function delAllCookie(){
     $.cookie("programmeID", null);
     $.cookie("fromDate", null);
     $.cookie("toDate", null);
+    $.cookie("fromDate2", null);
+    $.cookie("toDate2", null);
     $.cookie("currentMenu",null);
 }

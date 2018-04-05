@@ -30,7 +30,7 @@ function allLine(){
             var thisEventName = eventList[i].eventName;
             var thisStartTime = eventList[i].startTime;
             var thisEndTime = eventList[i].endTime;
-            text = text + newLine(thisInnerID, thisEventName, thisStartTime, thisEndTime, thisLocationID);
+            text = text + newLine(thisInnerID, thisEventName, thisStartTime, thisEndTime, thisLocationID,"my");
         }
         //document.getElementById("showMyList").innerText = text;
         $("#showMyList").html(text);
@@ -91,12 +91,19 @@ function godef(id){             //鼠标移开时触发
 }
 
 function deleEvent(id) {
-    $.post("http://localhost/comp208/PHP/DelEvent.php",{userID:thisUserID, eventID:eventList[id].eventID},data);
-    allLine();
+    //$.post("http://localhost/comp208/PHP/DelEvent.php",{userID:thisUserID, eventID:eventList[id].eventID},data);
+    //allLine();
 }
 
-function newLine(thisInnerID, thisEventName, thisStartTime, thisEndTime, thisLocationID){
-    var hereID = "M"+thisInnerID;
+function newLine(thisInnerID, thisEventName, thisStartTime, thisEndTime, thisLocationID,listName){
+    var hereID;
+    if(listName=="my"){
+        hereID = "M"+thisInnerID;
+    }else if(listName=="all"){
+        hereID = "A"+thisInnerID;
+    }else if(listName=="popular"){
+        hereID = "P"+thisInnerID;
+    }
     var quest = '<li>'+
                     '<a id= '+hereID+ ' href="javascript:void(0)"'+             //於:添加了href="javascript:void(0)"，鼠标移动到上面会有手指效果
                     ' onclick="addSite('+thisLocationID+','+thisInnerID+',\''+thisStartTime+'\',\''+thisEndTime+'\')"'+   //於：修改了函数参数
@@ -108,4 +115,42 @@ function newLine(thisInnerID, thisEventName, thisStartTime, thisEndTime, thisLoc
                     '<br>End: '+'<div id="endTime">'+thisEndTime+'</div>'+'</a>'+*/     //注释掉的部分用于直接显示时间，不用鼠标移上去（待定）
                 '</li>';
     return quest;
+}
+function allEventsList(){
+    $("#showMyList").empty();   //每次刷新list前清空当前list
+    eventList=[];
+    $("#showAllEventsList").html("<a href='javascript:void(0)'>Loading...</a>");
+    $.post("http://localhost/comp208/PHP/getEventList.php",{userID:thisUserID, orderBy:"startTime", userList:false},
+    function(data){
+        strings = data.split(";");
+        for(var i = 0; i<strings.length-1; i++){        //这里i<strings.length-1，去除了那个多出来的空元素
+            thisEvent = strings[i].split(",");
+            var event = {
+                innerID: i,
+                eventID: thisEvent[0],
+                eventName: thisEvent[1],
+                founderName: thisEvent[2],
+                startTime: thisEvent[3].substring(0,16),        //於：隐藏了秒
+                endTime: thisEvent[4].substring(0,16),
+                popularity: thisEvent[5],
+                locationID: thisEvent[6],
+                brief: thisEvent[7],
+                isAcademic: thisEvent[8]
+            }
+            eventList.push(event);
+        }
+        var text = "";
+        for(var i = 0; i < eventList.length; i++){
+            var thisLocationID = eventList[i].locationID;
+            var thisInnerID = eventList[i].innerID;
+            var thisEventName = eventList[i].eventName;
+            var thisStartTime = eventList[i].startTime;
+            var thisEndTime = eventList[i].endTime;
+            text = text + newLine(thisInnerID, thisEventName, thisStartTime, thisEndTime, thisLocationID,"all");
+        }
+        //document.getElementById("showMyList").innerText = text;
+        $("#showAllEventsList").html(text);
+        console.log("check2");
+        checkDate2();
+    });
 }
