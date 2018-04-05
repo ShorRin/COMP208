@@ -3,6 +3,7 @@ var eventList = [];
 function allLine(){
     $("#showMyList").empty();   //每次刷新list前清空当前list
     eventList=[];
+    $("#showMyList").html("<a href='javascript:void(0)'>Loading...</a>");
     $.post("http://localhost/comp208/PHP/getEventList.php",{userID:thisUserID, orderBy:"startTime", userList:true},
     function(data){
         console.log(data);
@@ -14,8 +15,8 @@ function allLine(){
                 eventID: thisEvent[0],
                 eventName: thisEvent[1],
                 founderName: thisEvent[2],
-                startTime: thisEvent[3],
-                endTime: thisEvent[4],
+                startTime: thisEvent[3].substring(0,16),        //於：隐藏了秒
+                endTime: thisEvent[4].substring(0,16),
                 popularity: thisEvent[5],
                 locationID: thisEvent[6],
                 brief: thisEvent[7],
@@ -98,7 +99,7 @@ function newLine(thisInnerID, thisEventName, thisStartTime, thisEndTime, thisLoc
     var hereID = "M"+thisInnerID;
     var quest = '<li>'+
                     '<a id= '+hereID+ ' href="javascript:void(0)"'+             //於:添加了href="javascript:void(0)"，鼠标移动到上面会有手指效果
-                    ' onclick="addSite('+thisLocationID+','+thisInnerID+')"'+   //於：修改了格式
+                    ' onclick="addSite('+thisLocationID+','+thisInnerID+',\''+thisStartTime+'\',\''+thisEndTime+'\')"'+   //於：修改了函数参数
                     ' onmouseover="thisTime('+'\''+hereID+'\''+')"'+
                     ' onmouseout="godef('+'\''+hereID+'\''+')"'+                //於：你在这里传入的是M+ID，上面函数直接调用了ID，这里参数加上了‘’
                     ' ondblclick= "deleEvent(' + thisInnerID + ')">'+           //上面函数也改了，去掉了M

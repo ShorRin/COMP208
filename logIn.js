@@ -16,6 +16,8 @@ function closeUp() {
                 setCookie("userName",thisUserName); //设置cookie使用的jq的方法（在cookie.js）里，没有用php的方法，如要修改，只需要修改cookie.js的方法即可
                 //於：这个延时感觉没必要啊，就把延时设为0了
                 setTimeout("document.getElementById(\"login\").style.display = \"none\"", 0);
+                setCurrentDate();       //把当前时间存入cookie
+                getDateFilterCookie();      //设置from的值为cookie的时间（今天）
                 $(".logout").html(thisUserName);
                 allLine();
             } else {

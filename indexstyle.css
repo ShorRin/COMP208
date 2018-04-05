@@ -71,8 +71,8 @@
 .toolpanel{
     z-index: 1;
     position: absolute;
-    bottom: 2px;
-    right: 2px;
+    bottom: 2px;/*2px;22px;*/
+    right: 2px;/*2px;45px*/
 }
 
 .btn-group button{
@@ -90,9 +90,9 @@
 .clock button{
     width: 150px;
     height: 50px;
-    bottom: 52px;
+    bottom: 52px; /*52px;70px;*/
     position: fixed;
-    right: 2px;
+    right: 2px;/*2px;45px;*/
     background-color: #262626;
     border: 0px #818181;
     color: white;
@@ -304,5 +304,5 @@ table#dateFilter {
     text-align: left;
 }
 
-#fromDate{float: right;}
-#toDate{float: right;}
+#fromDate{width: 130px;text-align: center}
+#toDate{width: 130px;text-align: center}
