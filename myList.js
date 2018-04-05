@@ -6,7 +6,6 @@ function allLine(){
     $("#showMyList").html("<a href='javascript:void(0)'>Loading...</a>");
     $.post("http://localhost/comp208/PHP/getEventList.php",{userID:thisUserID, orderBy:"startTime", userList:true},
     function(data){
-        console.log(data);
         strings = data.split(";");
         for(var i = 0; i<strings.length-1; i++){        //这里i<strings.length-1，去除了那个多出来的空元素
             thisEvent = strings[i].split(",");
@@ -35,6 +34,7 @@ function allLine(){
         }
         //document.getElementById("showMyList").innerText = text;
         $("#showMyList").html(text);
+        checkDate();
     });
 }
 
@@ -76,7 +76,7 @@ function loadList(){
     });
 }*/
 
-function thisTime(id){
+function thisTime(id){          //鼠标放上去时触发
     var listID=parseInt(id.substring(1));
     var timeText = 'Start: '+eventList[listID].startTime+'<br>End: &nbsp'+eventList[listID].endTime;
     document.getElementById(id).innerHTML = timeText;
@@ -84,8 +84,8 @@ function thisTime(id){
     //document.getElementById(id).innerText = eventList[listID].startTime + " - " + eventList[listID].endTime;
 }
 
-function godef(id){
-    var listID=parseInt(id.substring(1));
+function godef(id){             //鼠标移开时触发
+    var listID=parseInt(id.substring(1));       //於：把M去掉
     document.getElementById(id).innerText = eventList[listID].eventName;
     $("#"+id).css("font-size","30px");
 }
