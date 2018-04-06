@@ -72,8 +72,8 @@
     <a href="javascript:void(0)" class="openbtn" id="openbtn" onclick="openNav()">\></a>
     <div id="SidenavCon" class="sidenavcon" style="display: none">
         <div class="tab">
-            <button class="tablinks" id="myListButton" onclick="openForm(event, 'myListMenu'); allLine();">MYLIST</button>
-            <button class="tablinks" onclick="openForm(event, 'allListMenu');allEventsList();">ALL EVENTS</button>    <!--於：改名-->
+            <button class="tablinks" id="myListButton" onclick="openForm(event, 'myListMenu');">MYLIST</button>
+            <button class="tablinks" onclick="openForm(event, 'allListMenu');">ALL EVENTS</button>    <!--於：改名-->
             <button class="tablinks" onclick="openForm(event, 'popularMenu')">POPULAR</button>      <!--於：改名-->
         </div>
 
@@ -96,6 +96,7 @@
             <ul id = "showMyList" class="myList"></ul>
             <script>
                 allLine();
+                showAllEventsList();
                 $(".tablinks#myListButton").attr("class","tablinks active");
                 $("#myListMenu").css("display","block");    //於：开始时自动加载一次myList
             </script>

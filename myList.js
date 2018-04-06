@@ -1,4 +1,5 @@
 var eventList = [];
+var allEventsList = [];
 
 function allLine(){
     $("#showMyList").empty();   //每次刷新list前清空当前list
@@ -77,16 +78,28 @@ function loadList(){
 }*/
 
 function thisTime(id){          //鼠标放上去时触发
+    var eventListType;
+    if(id.substring(0,1)=="M"){
+        eventListType = eventList;
+    }else if(id.substring(0,1)=="A"){
+        eventListType = allEventsList;
+    }
     var listID=parseInt(id.substring(1));
-    var timeText = 'Start: '+eventList[listID].startTime+'<br>End: &nbsp'+eventList[listID].endTime;
+    var timeText = 'Start: '+eventListType[listID].startTime+'<br>End: &nbsp'+eventListType[listID].endTime;
     document.getElementById(id).innerHTML = timeText;
     $("#"+id).css("font-size","large");
     //document.getElementById(id).innerText = eventList[listID].startTime + " - " + eventList[listID].endTime;
 }
 
 function godef(id){             //鼠标移开时触发
+    var eventListType;
+    if(id.substring(0,1)=="M"){
+        eventListType = eventList;
+    }else if(id.substring(0,1)=="A"){
+        eventListType = allEventsList;
+    }
     var listID=parseInt(id.substring(1));       //於：把M去掉
-    document.getElementById(id).innerText = eventList[listID].eventName;
+    document.getElementById(id).innerText = eventListType[listID].eventName;
     $("#"+id).css("font-size","30px");
 }
 
@@ -116,9 +129,9 @@ function newLine(thisInnerID, thisEventName, thisStartTime, thisEndTime, thisLoc
                 '</li>';
     return quest;
 }
-function allEventsList(){
-    $("#showMyList").empty();   //每次刷新list前清空当前list
-    eventList=[];
+function showAllEventsList(){
+    $("#showAllEventsList").empty();   //每次刷新list前清空当前list
+    allEventsList=[];
     $("#showAllEventsList").html("<a href='javascript:void(0)'>Loading...</a>");
     $.post("http://localhost/comp208/PHP/getEventList.php",{userID:thisUserID, orderBy:"startTime", userList:false},
     function(data){
@@ -137,20 +150,19 @@ function allEventsList(){
                 brief: thisEvent[7],
                 isAcademic: thisEvent[8]
             }
-            eventList.push(event);
+            allEventsList.push(event);
         }
         var text = "";
-        for(var i = 0; i < eventList.length; i++){
-            var thisLocationID = eventList[i].locationID;
-            var thisInnerID = eventList[i].innerID;
-            var thisEventName = eventList[i].eventName;
-            var thisStartTime = eventList[i].startTime;
-            var thisEndTime = eventList[i].endTime;
+        for(var i = 0; i < allEventsList.length; i++){
+            var thisLocationID = allEventsList[i].locationID;
+            var thisInnerID = allEventsList[i].innerID;
+            var thisEventName = allEventsList[i].eventName;
+            var thisStartTime = allEventsList[i].startTime;
+            var thisEndTime =allEventsList[i].endTime;
             text = text + newLine(thisInnerID, thisEventName, thisStartTime, thisEndTime, thisLocationID,"all");
         }
         //document.getElementById("showMyList").innerText = text;
         $("#showAllEventsList").html(text);
-        console.log("check2");
         checkDate2();
     });
 }
