@@ -3,12 +3,14 @@ function openNav() {
         document.getElementById("mySidenav").style.width = "400px";
         document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
         document.getElementById("openbtn").innerText = "<";
-        setTimeout("document.getElementById(\"SidenavCon\").style.display = \"block\";",200)
+        setTimeout("document.getElementById(\"SidenavCon\").style.display = \"block\";",200);
+        setCookie('isSideNavOpen','true');
     } else {
         document.getElementById("SidenavCon").style.display = "none";
         document.getElementById("mySidenav").style.width = "15px";
         document.body.style.backgroundColor = "white";
         document.getElementById("openbtn").innerText = ">";
+        setCookie('isSideNavOpen','false');
     }
 }
 
@@ -31,5 +33,7 @@ function openForm(evt, formName) {
     // Show the current tab, and add an "active" class to the button that opened the tab
     document.getElementById(formName).style.display = "block";
     evt.currentTarget.className += " active";
+
+    setCookie('currentMenu',formName);
 }
 

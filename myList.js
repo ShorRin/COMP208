@@ -1,8 +1,8 @@
 var eventList = [];
 var allEventsList = [];
-
+var popularList = [];
 function allLine(){
-    $("#showMyList").empty();   //每次刷新list前清空当前list
+    //$("#showMyList").empty();   //每次刷新list前清空当前list
     eventList=[];
     $("#showMyList").html("<a href='javascript:void(0)'>Loading...</a>");
     $.post("http://localhost/comp208/PHP/getEventList.php",{userID:thisUserID, orderBy:"startTime", userList:true},
@@ -83,6 +83,8 @@ function thisTime(id){          //鼠标放上去时触发
         eventListType = eventList;
     }else if(id.substring(0,1)=="A"){
         eventListType = allEventsList;
+    }else if(id.substring(0,1)=="P"){
+        eventListType = popularList;
     }
     var listID=parseInt(id.substring(1));
     var timeText = 'Start: '+eventListType[listID].startTime+'<br>End: &nbsp'+eventListType[listID].endTime;
@@ -97,40 +99,16 @@ function godef(id){             //鼠标移开时触发
         eventListType = eventList;
     }else if(id.substring(0,1)=="A"){
         eventListType = allEventsList;
+    }else if(id.substring(0,1)=="P"){
+        eventListType = popularList;
     }
     var listID=parseInt(id.substring(1));       //於：把M去掉
     document.getElementById(id).innerText = eventListType[listID].eventName;
     $("#"+id).css("font-size","30px");
 }
 
-function deleEvent(id) {
-    //$.post("http://localhost/comp208/PHP/DelEvent.php",{userID:thisUserID, eventID:eventList[id].eventID},data);
-    //allLine();
-}
-
-function newLine(thisInnerID, thisEventName, thisStartTime, thisEndTime, thisLocationID,listName){
-    var hereID;
-    if(listName=="my"){
-        hereID = "M"+thisInnerID;
-    }else if(listName=="all"){
-        hereID = "A"+thisInnerID;
-    }else if(listName=="popular"){
-        hereID = "P"+thisInnerID;
-    }
-    var quest = '<li>'+
-                    '<a id= '+hereID+ ' href="javascript:void(0)"'+             //於:添加了href="javascript:void(0)"，鼠标移动到上面会有手指效果
-                    ' onclick="addSite('+thisLocationID+','+thisInnerID+',\''+thisStartTime+'\',\''+thisEndTime+'\')"'+   //於：修改了函数参数
-                    ' onmouseover="thisTime('+'\''+hereID+'\''+')"'+
-                    ' onmouseout="godef('+'\''+hereID+'\''+')"'+                //於：你在这里传入的是M+ID，上面函数直接调用了ID，这里参数加上了‘’
-                    ' ondblclick= "deleEvent(' + thisInnerID + ')">'+           //上面函数也改了，去掉了M
-                    thisEventName+'</a>'+
-                    /*'<br>Start: '+'<div id="startTime">'+thisStartTime+'</div>'+    //於：添加了div和id用于时间筛选
-                    '<br>End: '+'<div id="endTime">'+thisEndTime+'</div>'+'</a>'+*/     //注释掉的部分用于直接显示时间，不用鼠标移上去（待定）
-                '</li>';
-    return quest;
-}
 function showAllEventsList(){
-    $("#showAllEventsList").empty();   //每次刷新list前清空当前list
+    //$("#showAllEventsList").empty();   //每次刷新list前清空当前list
     allEventsList=[];
     $("#showAllEventsList").html("<a href='javascript:void(0)'>Loading...</a>");
     $.post("http://localhost/comp208/PHP/getEventList.php",{userID:thisUserID, orderBy:"startTime", userList:false},
@@ -165,4 +143,84 @@ function showAllEventsList(){
         $("#showAllEventsList").html(text);
         checkDate2();
     });
+}
+function showPopularList(){
+    //$("#showPopularList").empty();   //每次刷新list前清空当前list
+    popularList=[];
+    $("#showPopularList").html("<a href='javascript:void(0)'>Loading...</a>");
+    $.post("http://localhost/comp208/PHP/getEventList.php",{userID:thisUserID, orderBy:"popularity DESC", userList:false},
+    function(data){
+        strings = data.split(";");
+        for(var i = 0; i<strings.length-1; i++){        //这里i<strings.length-1，去除了那个多出来的空元素
+            thisEvent = strings[i].split(",");
+            var event = {
+                innerID: i,
+                eventID: thisEvent[0],
+                eventName: thisEvent[1],
+                founderName: thisEvent[2],
+                startTime: thisEvent[3].substring(0,16),        //於：隐藏了秒
+                endTime: thisEvent[4].substring(0,16),
+                popularity: thisEvent[5],
+                locationID: thisEvent[6],
+                brief: thisEvent[7],
+                isAcademic: thisEvent[8]
+            }
+            popularList.push(event);
+        }
+        var text = "";
+        for(var i = 0; i < popularList.length; i++){
+            var thisLocationID = popularList[i].locationID;
+            var thisInnerID = popularList[i].innerID;
+            var thisEventName = popularList[i].eventName;
+            var thisStartTime = popularList[i].startTime;
+            var thisEndTime =popularList[i].endTime;
+            text = text + newLine(thisInnerID, thisEventName, thisStartTime, thisEndTime, thisLocationID,"popular");
+        }
+        //document.getElementById("showMyList").innerText = text;
+        $("#showPopularList").html(text);
+        checkDate3();
+    });
+}
+function newLine(thisInnerID, thisEventName, thisStartTime, thisEndTime, thisLocationID,listName){
+    var hereID;
+    if(listName=="my"){
+        hereID = "M"+thisInnerID;
+    }else if(listName=="all"){
+        hereID = "A"+thisInnerID;
+    }else if(listName=="popular"){
+        hereID = "P"+thisInnerID;
+    }
+    var quest = '<li>'+
+                    '<a id= '+hereID+ ' href="javascript:void(0)"'+             //於:添加了href="javascript:void(0)"，鼠标移动到上面会有手指效果
+                    ' onclick="addSite('+thisLocationID+','+thisInnerID+',\''+thisStartTime+'\',\''+thisEndTime+'\''+',\''+hereID+'\''+')"'+   //於：修改了函数参数
+                    ' onmouseover="thisTime('+'\''+hereID+'\''+')"'+
+                    ' onmouseout="godef('+'\''+hereID+'\''+')"'+                //於：你在这里传入的是M+ID，上面函数直接调用了ID，这里参数加上了‘’
+                    ' ondblclick= "deleEvent(' + thisInnerID + ')">'+           //上面函数也改了，去掉了M
+                    thisEventName+'</a>'+
+                    /*'<br>Start: '+'<div id="startTime">'+thisStartTime+'</div>'+    //於：添加了div和id用于时间筛选
+                    '<br>End: '+'<div id="endTime">'+thisEndTime+'</div>'+'</a>'+*/     //注释掉的部分用于直接显示时间，不用鼠标移上去（待定）
+                '</li>';
+    return quest;
+}
+function addEventToMylist(eventID){
+    $.post("http://localhost/PHP/addEvent.php",{eventID:eventID,userID:thisUserID},
+	function(data){
+		if(data.indexOf("Success!") == 0){
+			window.alert(data);
+			window.location.reload();
+		}else{
+			window.alert("Something wrong");
+		}
+	});
+}
+function delEventFromMylist(eventID){
+    $.post("http://localhost/PHP/delEvent.php",{eventID:eventID,userID:thisUserID},
+	function(data){
+		if(data.indexOf("Success!") == 0){
+			window.alert(data);
+			window.location.reload();
+		}else{
+			window.alert("Something wrong");
+		}
+	});
 }

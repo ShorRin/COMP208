@@ -20,6 +20,9 @@ function closeUp() {
                 getDateFilterCookie();      //设置from的值为cookie的时间（今天）
                 $(".logout").html(thisUserName);
                 allLine();
+                showAllEventsList();
+                showPopularList();
+
             } else {
                 if(response.includes("403 USERNAME")){
                     $("#loginButton").text("Login");    //yu:把按钮文字改回Login

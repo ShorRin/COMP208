@@ -38,7 +38,7 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
 }
 
 //add new tags to the map with description
-function addSite(locID, inID, startTimePar, endTimePar){      //於：修改了参数，时间变成通过参数传入
+function addSite(locID, inID, startTimePar, endTimePar,eventIDMAP){      //於：修改了参数，时间变成通过参数传入,传入了eventID(MAP)
     $.post("http://localhost/comp208/PHP/getLocationInfo.php",{locationID: locID},          //於：修改返回值的处理
     function(locInfo){
         thisLoc = locInfo.split(";");
@@ -50,26 +50,38 @@ function addSite(locID, inID, startTimePar, endTimePar){      //於：修改了�
             lng: thelng
         }
         console.log(thelng+","+thelat);
-        addMarker(pos, locName, inID, startTimePar, endTimePar);
+        addMarker(pos, locName, inID, startTimePar, endTimePar, eventIDMAP);
         map.setCenter(pos);
     });
     
 }
 
 //used to add description marker to the map
-function addMarker(position, locName, inID, start, end){
+function addMarker(position, locName, inID, start, end, eventIDMAP){
+    var listType;
+    var button;
+    if(eventIDMAP.substring(0,1)=="M"){
+        listType = eventList;
+        button = '<button onclick="delEventFromMylist('+listType[inID].eventID+')">'+'remove '+listType[inID].eventID+'</button>';
+    }else if(eventIDMAP.substring(0,1)=="A"){
+        listType = allEventsList;
+        button = '<button onclick="addEventToMylist('+listType[inID].eventID+')">'+'add '+listType[inID].eventID+'</button>';
+    }else if(eventIDMAP.substring(0,1)=="P"){
+        listType = popularList;
+        button = '<button onclick="addEventToMylist('+listType[inID].eventID+')">'+'add '+listType[inID].eventID+'</button>';
+    }
     //please convert the content to the contentString here
     var contentString = '<div id="content">'+
-        '<div id="siteNotice">'+
-        '</div>'+
-        '<h1 id="firstHeading" class="firstHeading">'+eventList[inID].eventName+'</h1>'+
-        '<div id="bodyContent">'+
-        '<p>'+eventList[inID].brief+'</p>'+
-        '<p>'+locName+'</p>'+
-        '<p>Created by '+eventList[inID].founderName+'</p>'+
-        '<p>'+ start + ' - ' + end + '</p>'+
-        '</div>'+
-        '</div>';
+                            '<div id="siteNotice">'+'</div>'+
+                            '<h1 id="firstHeading" class="firstHeading">'+listType[inID].eventName+'</h1>'+
+                            '<div id="bodyContent">'+
+                                '<p>'+listType[inID].brief+'</p>'+
+                                '<p>'+locName+'</p>'+
+                                '<p>Created by '+listType[inID].founderName+'</p>'+
+                                '<p>'+ start + ' - ' + end + '</p>'+
+                                button+
+                            '</div>'+
+                        '</div>';
 
     var infowindow = new google.maps.InfoWindow({
         content: contentString

@@ -73,8 +73,8 @@
     <div id="SidenavCon" class="sidenavcon" style="display: none">
         <div class="tab">
             <button class="tablinks" id="myListButton" onclick="openForm(event, 'myListMenu');">MYLIST</button>
-            <button class="tablinks" onclick="openForm(event, 'allListMenu');">ALL EVENTS</button>    <!--於：改名-->
-            <button class="tablinks" onclick="openForm(event, 'popularMenu')">POPULAR</button>      <!--於：改名-->
+            <button class="tablinks" id="allListButton" onclick="openForm(event, 'allListMenu');">ALL EVENTS</button>    <!--於：改名-->
+            <button class="tablinks" id="popularListButton" onclick="openForm(event, 'popularListMenu')">POPULAR</button>      <!--於：改名-->
         </div>
 
 
@@ -94,18 +94,12 @@
                 <input type="text" placeholder="Search..." onkeyup="search(this.value)">
             </div>
             <ul id = "showMyList" class="myList"></ul>
-            <script>
-                allLine();
-                showAllEventsList();
-                $(".tablinks#myListButton").attr("class","tablinks active");
-                $("#myListMenu").css("display","block");    //於：开始时自动加载一次myList
-            </script>
         </div>
 
-        <div id="allListMenu" class="tabcontent">
+        <div id="allListMenu" class="tabcontent">           <!--於：all events list-->
             <table id="dateFilter">                         <!--於：时间筛选器-->
                 <tr>
-                    <td><label for="fromDate2">From：</label></td>
+                    <td><label for="fromDate2">From：</label></td>      <!--於：这里的两个id后面要加2-->
                     <td><input id="fromDate2" type="date" max="" onchange="setMinMaxDate(2,'from')"/></td>
                 </tr>
                 <tr>
@@ -119,15 +113,15 @@
             <ul id = "showAllEventsList" class="allEventsList"></ul>
         </div>
 
-        <div id="popularMenu" class="tabcontent">
+        <div id="popularListMenu" class="tabcontent">           <!--於：popular list-->
             <table id="dateFilter">                         <!--於：时间筛选器-->
                 <tr>
-                    <td><labelfor="fromDate">From：</label></td>
-                    <td><input id="fromDate" type="date" max="" onchange="setMinMaxDate('from')"/></td>
+                    <td><labe lfor="fromDate3">From：</label></td>        <!--於：这里的两个id后面要加3-->
+                    <td><input id="fromDate3" type="date" max="" onchange="setMinMaxDate(3,'from')"/></td>
                 </tr>
                 <tr>
-                    <td><label for="toDate">To：</label></td>
-                    <td><input id="toDate" type="date" min="" onchange="setMinMaxDate('to')"/></td>
+                    <td><label for="toDate3">To：</label></td>
+                    <td><input id="toDate3" type="date" min="" onchange="setMinMaxDate(3,'to')"/></td>
                 </tr>
             </table>
             <div class="searcharea" >
@@ -135,6 +129,33 @@
             </div>
             <ul id = "showPopularList" class="popularList"></ul>
         </div>
+        <script>
+            allLine();
+            showAllEventsList();
+            showPopularList();
+            if(getCookie('isSideNavOpen')=='null'||getCookie('isSideNavOpen')==undefined){
+                setCookie('isSideNavOpen','false');
+            }
+            if(getCookie('currentMenu')=='null'||getCookie('currentMenu')==undefined){
+                setCookie('currentMenu','myListMenu');
+            }
+            if(getCookie('isSideNavOpen')=='false'){
+                //do nothing
+            }else if(getCookie('isSideNavOpen')=='true'){
+                openNav()
+            }
+            if(getCookie('currentMenu')=='myListMenu'){
+                $(".tablinks#myListButton").attr("class","tablinks active");
+                $("#myListMenu").css("display","block");    //於：开始时根据cookie显示menu
+            }else if(getCookie('currentMenu')=='allListMenu'){
+                $(".tablinks#allListButton").attr("class","tablinks active");
+                $("#allListMenu").css("display","block");
+            }else if(getCookie('currentMenu')=='popularListMenu'){
+                $(".tablinks#popularListButton").attr("class","tablinks active");
+                $("#popularListMenu").css("display","block");
+            }
+            
+        </script>
     </div>
 </div>
 

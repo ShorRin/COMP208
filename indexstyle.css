@@ -308,7 +308,14 @@ ul.allEventsList{
     margin: 0;
     padding: 0;
 }
+ul.popularList{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
 #fromDate{width: 130px;text-align: center}
 #toDate{width: 130px;text-align: center}
 #fromDate2{width: 130px;text-align: center}
 #toDate2{width: 130px;text-align: center}
+#fromDate3{width: 130px;text-align: center}
+#toDate3{width: 130px;text-align: center}

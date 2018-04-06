@@ -13,11 +13,10 @@ function delCookie(cookieName) {
 function delAllCookie(){
     $.cookie("userID", null);
     $.cookie("userName", null);
-    $.cookie("authority", null);
-    $.cookie("programmeID", null);
     $.cookie("fromDate", null);
     $.cookie("toDate", null);
     $.cookie("fromDate2", null);
     $.cookie("toDate2", null);
     $.cookie("currentMenu",null);
+    setCookie('isSideNavOpen',null);
 }
