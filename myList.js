@@ -202,23 +202,33 @@ function newLine(thisInnerID, thisEventName, thisStartTime, thisEndTime, thisLoc
                 '</li>';
     return quest;
 }
-function addEventToMylist(eventID){
+function addEventToMylist(eventID, button){
     $.post("http://localhost/PHP/addEvent.php",{eventID:eventID,userID:thisUserID},
 	function(data){
 		if(data.indexOf("Success!") == 0){
 			window.alert(data);
-			window.location.reload();
+            //window.location.reload();
+            $(button).html("remove " +eventID);
+            $(button).attr("onclick","delEventFromMylist("+eventID+", this)");
+            allLine();
+            showAllEventsList();
+            showPopularList();
 		}else{
 			window.alert("Something wrong");
 		}
 	});
 }
-function delEventFromMylist(eventID){
+function delEventFromMylist(eventID, button){
     $.post("http://localhost/PHP/delEvent.php",{eventID:eventID,userID:thisUserID},
 	function(data){
 		if(data.indexOf("Success!") == 0){
 			window.alert(data);
-			window.location.reload();
+            //window.location.reload();
+            $(button).html("add " +eventID);
+            $(button).attr("onclick","addEventToMylist("+eventID+", this)");
+            allLine();
+            showAllEventsList();
+            showPopularList();
 		}else{
 			window.alert("Something wrong");
 		}
