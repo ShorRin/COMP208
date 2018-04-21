@@ -165,6 +165,7 @@ function showPopularList(){
                 brief: thisEvent[7],
                 isAcademic: thisEvent[8]
             }
+            console.log()
             popularList.push(event);
         }
         var text = "";
@@ -203,6 +204,8 @@ function newLine(thisInnerID, thisEventName, thisStartTime, thisEndTime, thisLoc
     return quest;
 }
 function addEventToMylist(eventID, button){
+    $(button).text("Processing...");
+    $(button).attr("onclick","javascript:void(0)");     //於：点击add后文字改变
     $.post("http://localhost/PHP/addEvent.php",{eventID:eventID,userID:thisUserID},
 	function(data){
 		if(data.indexOf("Success!") == 0){
@@ -219,6 +222,8 @@ function addEventToMylist(eventID, button){
 	});
 }
 function delEventFromMylist(eventID, button){
+    $(button).html("Processing...");
+    $(button).attr("onclick","javascript:void(0)");     //於：点击remove后文字改变
     $.post("http://localhost/PHP/delEvent.php",{eventID:eventID,userID:thisUserID},
 	function(data){
 		if(data.indexOf("Success!") == 0){

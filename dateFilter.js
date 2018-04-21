@@ -18,6 +18,7 @@ function checkDate(){
         to="";
     }
     $("a[id^='M']").each(function(){              //筛选部分，取<a>且id以M开头的元素
+        //$(this).parent().attr("id","show1");              //ready for search
         $(this).parent().hide();        //先全部隐藏
         innerID = $(this).attr("id").substring(1);
         var thisStart = new Date(eventList[innerID].startTime);
@@ -57,6 +58,7 @@ function checkDate2(){
     }
     console.log(eventList);
     $("a[id^='A']").each(function(){              //筛选部分，取<a>且id以A开头的元素
+        //$(this).parent().attr("id","show2");              //ready for search
         $(this).parent().hide();        //先全部隐藏
         innerID = $(this).attr("id").substring(1);
         var thisStart = new Date(allEventsList[innerID].startTime);
@@ -96,6 +98,7 @@ function checkDate3(){
     }
     console.log(popularList);
     $("a[id^='P']").each(function(){              //筛选部分，取<a>且id以A开头的元素
+        //$(this).parent().attr("id","show3");              //ready for search
         $(this).parent().hide();        //先全部隐藏
         innerID = $(this).attr("id").substring(1);
         var thisStart = new Date(popularList[innerID].startTime);
