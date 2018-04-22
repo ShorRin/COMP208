@@ -1,4 +1,5 @@
 var map, infoWindow;
+var markers = [];
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: 53.405844, lng: -2.965814},
@@ -92,10 +93,18 @@ function addMarker(position, locName, inID, start, end, eventIDMAP){
         map: map,
         title: 'Uluru (Ayers Rock)'
     })
+    markers.push(marker);
 
     marker.addListener('click', function() {
         infowindow.open(map, marker);
     });
+}
+
+function clearMarkers(){
+    for(var i=0; i<markers.length; i++){
+        markers[i].setMap(null);
+    }
+    markers = [];
 }
 
 function viewLocation(){

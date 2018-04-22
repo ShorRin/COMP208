@@ -60,3 +60,11 @@ function viewPop(){
     }
 }
 
+function refresh(){
+    allLine();
+    showAllEventsList();
+    showPopularList();
+    //initMap();
+    clearMarkers();
+}
+

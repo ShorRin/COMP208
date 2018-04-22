@@ -18,21 +18,31 @@ function checkDate(){
         to="";
     }
     $("a[id^='M']").each(function(){              //筛选部分，取<a>且id以M开头的元素
-        //$(this).parent().attr("id","show1");              //ready for search
+        $(this).parent().attr("id","old1");              //ready for search
         $(this).parent().hide();        //先全部隐藏
         innerID = $(this).attr("id").substring(1);
         var thisStart = new Date(eventList[innerID].startTime);
         if(from==""){
             if(to==""){ //to,from都未设置，显示全部
                 $(this).parent().show();
+                $(this).parent().attr("id","new1");
             }else{      //from未设置，to设置，显示开始时间时间小于to的
-                if(thisStart<=to) $(this).parent().show();
+                if(thisStart<=to) {
+                    $(this).parent().show();
+                    $(this).parent().attr("id","new1");
+                }
             }
         }else {
             if(to==""){ //from设置，to未设置，显示开始时间大于from的
-                if(thisStart>=from) $(this).parent().show();
+                if(thisStart>=from) {
+                    $(this).parent().show();
+                    $(this).parent().attr("id","new1");
+                }
             }else{      //from，to都设置，显示大于from，小于to的
-                if(thisStart>=from&&thisStart<=to) $(this).parent().show();
+                if(thisStart>=from&&thisStart<=to) {
+                    $(this).parent().show();
+                    $(this).parent().attr("id","new1");
+                }
             }
         }
     });
@@ -58,21 +68,31 @@ function checkDate2(){
     }
     console.log(eventList);
     $("a[id^='A']").each(function(){              //筛选部分，取<a>且id以A开头的元素
-        //$(this).parent().attr("id","show2");              //ready for search
+        $(this).parent().attr("id","old2");              //ready for search
         $(this).parent().hide();        //先全部隐藏
         innerID = $(this).attr("id").substring(1);
         var thisStart = new Date(allEventsList[innerID].startTime);
         if(from==""){
             if(to==""){ //to,from都未设置，显示全部
                 $(this).parent().show();
+                $(this).parent().attr("id","new2");
             }else{      //from未设置，to设置，显示开始时间时间小于to的
-                if(thisStart<=to) $(this).parent().show();
+                if(thisStart<=to) {
+                    $(this).parent().show();
+                    $(this).parent().attr("id","new2");
+                }
             }
         }else{
             if(to==""){ //from设置，to未设置，显示开始时间大于from的
-                if(thisStart>=from) $(this).parent().show();
+                if(thisStart>=from) {
+                    $(this).parent().show();
+                    $(this).parent().attr("id","new2");
+                }
             }else{      //from，to都设置，显示大于from，小于to的
-                if(thisStart>=from&&thisStart<=to) $(this).parent().show();
+                if(thisStart>=from&&thisStart<=to) {
+                    $(this).parent().show();
+                    $(this).parent().attr("id","new2");
+                }
             }
         }
     });
@@ -98,21 +118,31 @@ function checkDate3(){
     }
     console.log(popularList);
     $("a[id^='P']").each(function(){              //筛选部分，取<a>且id以A开头的元素
-        //$(this).parent().attr("id","show3");              //ready for search
+        $(this).parent().attr("id","old3");              //ready for search
         $(this).parent().hide();        //先全部隐藏
         innerID = $(this).attr("id").substring(1);
         var thisStart = new Date(popularList[innerID].startTime);
         if(from==""){
             if(to==""){ //to,from都未设置，显示全部
                 $(this).parent().show();
+                $(this).parent().attr("id","new3");
             }else{      //from未设置，to设置，显示开始时间时间小于to的
-                if(thisStart<=to) $(this).parent().show();
+                if(thisStart<=to) {
+                    $(this).parent().show();
+                    $(this).parent().attr("id","new3");
+                }
             }
         }else{
             if(to==""){ //from设置，to未设置，显示开始时间大于from的
-                if(thisStart>=from) $(this).parent().show();
+                if(thisStart>=from) {
+                    $(this).parent().show();
+                    $(this).parent().attr("id","new3");
+                }
             }else{      //from，to都设置，显示大于from，小于to的
-                if(thisStart>=from&&thisStart<=to) $(this).parent().show();
+                if(thisStart>=from&&thisStart<=to) {
+                    $(this).parent().show();
+                    $(this).parent().attr("id","new3");
+                }
             }
         }
     });
@@ -127,6 +157,7 @@ function setMinMaxDate(number,type){
             setCookie("toDate",$("#toDate").val());
         }
         checkDate(); 
+        search($("#search1"));
     }else if(number==2){
         if(type=="from"){
             $("#toDate2").attr('min',$("#fromDate2").val());
@@ -136,6 +167,7 @@ function setMinMaxDate(number,type){
             setCookie("toDate2",$("#toDate2").val());
         }
         checkDate2();
+        search($("#search2"));
     }else if(number==3){
         if(type=="from"){
             $("#toDate3").attr('min',$("#fromDate3").val());
@@ -145,6 +177,7 @@ function setMinMaxDate(number,type){
             setCookie("toDate3",$("#toDate3").val());
         }
         checkDate3();
+        search($("#search3"));
     }
        
 }

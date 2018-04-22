@@ -2,7 +2,7 @@ var eventList = [];
 var allEventsList = [];
 var popularList = [];
 function allLine(){
-    //$("#showMyList").empty();   //每次刷新list前清空当前list
+    //$("#showMyList").empty();   //每次刷新list前清空当前list(不需要了)
     eventList=[];
     $("#showMyList").html("<a href='javascript:void(0)'>Loading...</a>");
     $.post("http://localhost/comp208/PHP/getEventList.php",{userID:thisUserID, orderBy:"startTime", userList:true},
@@ -36,6 +36,7 @@ function allLine(){
         //document.getElementById("showMyList").innerText = text;
         $("#showMyList").html(text);
         checkDate();
+        search($("#search1"));
     });
 }
 
@@ -108,7 +109,7 @@ function godef(id){             //鼠标移开时触发
 }
 
 function showAllEventsList(){
-    //$("#showAllEventsList").empty();   //每次刷新list前清空当前list
+    //$("#showAllEventsList").empty();   //每次刷新list前清空当前list(不需要了)
     allEventsList=[];
     $("#showAllEventsList").html("<a href='javascript:void(0)'>Loading...</a>");
     $.post("http://localhost/comp208/PHP/getEventList.php",{userID:thisUserID, orderBy:"startTime", userList:false},
@@ -142,10 +143,11 @@ function showAllEventsList(){
         //document.getElementById("showMyList").innerText = text;
         $("#showAllEventsList").html(text);
         checkDate2();
+        search($("#search2"));
     });
 }
 function showPopularList(){
-    //$("#showPopularList").empty();   //每次刷新list前清空当前list
+    //$("#showPopularList").empty();   //每次刷新list前清空当前list(不需要了)
     popularList=[];
     $("#showPopularList").html("<a href='javascript:void(0)'>Loading...</a>");
     $.post("http://localhost/comp208/PHP/getEventList.php",{userID:thisUserID, orderBy:"popularity DESC", userList:false},
@@ -180,6 +182,7 @@ function showPopularList(){
         //document.getElementById("showMyList").innerText = text;
         $("#showPopularList").html(text);
         checkDate3();
+        search($("#search3"));
     });
 }
 function newLine(thisInnerID, thisEventName, thisStartTime, thisEndTime, thisLocationID,listName){
@@ -211,7 +214,7 @@ function addEventToMylist(eventID, button){
 		if(data.indexOf("Success!") == 0){
 			window.alert(data);
             //window.location.reload();
-            $(button).html("remove " +eventID);
+            $(button).html("remove");
             $(button).attr("onclick","delEventFromMylist("+eventID+", this)");
             allLine();
             showAllEventsList();
@@ -229,7 +232,7 @@ function delEventFromMylist(eventID, button){
 		if(data.indexOf("Success!") == 0){
 			window.alert(data);
             //window.location.reload();
-            $(button).html("add " +eventID);
+            $(button).html("add");
             $(button).attr("onclick","addEventToMylist("+eventID+", this)");
             allLine();
             showAllEventsList();
