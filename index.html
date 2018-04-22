@@ -13,6 +13,7 @@
 <script src = logIn.js></script>
 <script src = logOut.js></script>
 <script src = search.js></script>
+<script src = adminAdditionalFunction.js></script>
 <script src = "dateFilter.js"></script>
 <script src="http://cdn.static.runoob.com/libs/jquery/1.10.2/jquery.min.js"></script>
 <script>if (typeof module === 'object') {window.jQuery = window.$ = module.exports;};</script>  <!--於：用于使用electron时-->
@@ -50,8 +51,40 @@
 
 
 <div id="map"></div>
-
+<div id="createdEventsWindow" class="white_content">
+	<table id="createdEventTable"></table> 
+</div>
+        
+    <div id="fade1" class="black_overlay" onclick='hideCreatedEventsWindow()'></div>
+	<div id="creationWindow" class="white_content"> 
+		<form method="post" name = "form">
+			Event Name: <br>
+			<input type = "text" name = "eventName" id = "eventName" placeholder = "event name" size = "20"><br>
+			Founder:<br>
+			<input type = "text" name = "founderName" id = "founderName" placeholder = "your name" size = "20"><br>	
+			Event Type:<br>
+			<input type = "radio" name="eventType" id = "eventType1" value="academic">Academic 
+			<input type = "radio" name="eventType" id = "eventType2" value="non-academic">Nonacademic<br>
+			Start: <br>
+			<input type = "text" name = "startTime" id="startTime" placeholder = "start time in: YYYY-MM-DD HH:MM:SS" size = "60"><br>
+			End: <br>
+			<input type = "text" name = "endTime" id="endTime" placeholder = "end time in: YYYY-MM-DD HH:MM:SS" size = "60"><br>
+			<!-- location ID return 具体地名 -->
+			Location:<br>
+			<select name="selectLocation" id = "selectLocation"  class = "menu">
+			<!-- loading options -->
+			<script>showLocationOptions();</script>
+			</select><br>
+			Brief:<br>
+			<textarea id = "eventBrief" name = "brief" rows="5" cols="70" placeholder = "brief description"></textarea><br>
+			<button type="button" onclick="createNewEvent()"> Create </button>
+		</form>
+	</div>
+<div id="fade2" class="black_overlay" onclick='hideCreationWindow()'></div>
+        
 <div class="username">
+    <button onclick="popUpCreatedEventsWindow(); getCreatedEventList()">Created Events</button>
+    <button onclick="popUpCreationWindow()"> + </button>
     <button onclick="logOut()" class="logout" onmouseover="showTex()" onmouseout="hideTex()" id="logout">
         <script> 
             document.write(thisUserName);
@@ -76,9 +109,9 @@
     <a href="javascript:void(0)" class="openbtn" id="openbtn" onclick="openNav()">\></a>
     <div id="SidenavCon" class="sidenavcon" style="display: none">
         <div class="tab">
-            <button class="tablinks" id="myListButton" onclick="openForm(event, 'myListMenu');">MYLIST</button>
-            <button class="tablinks" id="allListButton" onclick="openForm(event, 'allListMenu');">ALL EVENTS</button>    <!--於：改名-->
-            <button class="tablinks" id="popularListButton" onclick="openForm(event, 'popularListMenu')">POPULAR</button>      <!--於：改名-->
+            <button class="tablinks" id="myListButton" onmouseover="openForm(event, 'myListMenu');">MYLIST</button>
+            <button class="tablinks" id="allListButton" onmouseover="openForm(event, 'allListMenu');">ALL EVENTS</button>    <!--於：改名-->
+            <button class="tablinks" id="popularListButton" onmouseover="openForm(event, 'popularListMenu')">POPULAR</button>      <!--於：改名-->
         </div>
 
 
@@ -120,7 +153,7 @@
         <div id="popularListMenu" class="tabcontent">           <!--於：popular list-->
             <table id="dateFilter">                         <!--於：时间筛选器-->
                 <tr>
-                    <td><labe lfor="fromDate3">From：</label></td>        <!--於：这里的两个id后面要加3-->
+                    <td><label for="fromDate3">From：</label></td>        <!--於：这里的两个id后面要加3-->
                     <td><input id="fromDate3" type="date" max="" onchange="setMinMaxDate(3,'from')"/></td>
                 </tr>
                 <tr>

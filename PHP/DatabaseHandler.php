@@ -27,7 +27,7 @@ class DatabaseHandler
         $this->pdoForProgrammeInfo = NULL;
     }
 
-    private static function connectToDB(String $nameOfDB){
+    private static function connectToDB($nameOfDB){
         $db_hostname = "localhost";
         $db_database = $nameOfDB;
         $db_username = "root";
@@ -42,7 +42,7 @@ class DatabaseHandler
         return new PDO($dsn, $db_username, $db_password, $opt);
     }
 
-    public function transactionRegister(String $username, String $password){
+    public function transactionRegister( $username,  $password){
         try {
             //INSERT
             $this->pdoForCOMP208->beginTransaction();
@@ -52,7 +52,7 @@ class DatabaseHandler
                     VALUES (?,?,?,?)";
             $stmt = $this->pdoForCOMP208->prepare($sql);
             $newID = $this->generateID($username);
-            $stmt->execute([$newID, $username, $password, 0]);
+            $stmt->execute(array($newID, $username, $password, 0));
 
             $this->pdoForUserInfo->beginTransaction();
             $sql = "CREATE TABLE ID$newID(
@@ -71,7 +71,7 @@ class DatabaseHandler
         }
     }
 
-    public function transactionAuthentication(String $username, String $password){
+    public function transactionAuthentication( $username,  $password){
         try {
             $userID = $this->authentication($username, $password);
             setcookie("userID", $userID, 0, '/');
@@ -81,12 +81,12 @@ class DatabaseHandler
         }
     }
 
-    private function authentication(String $username, String $password){
+    private function authentication( $username,  $password){
         $sql = "SELECT userID, password
                 FROM user
                 WHERE userName = ?";
         $stmt = $this->pdoForCOMP208->prepare($sql);
-        $stmt->execute([$username]);
+        $stmt->execute(array($username));
         /*Checks if the username exist. 检查用户名是否存在。*/
         if($stmt->rowCount() == 0)
             throw new PDOException("USERNAME");
@@ -98,7 +98,7 @@ class DatabaseHandler
         return $result["userID"];
     }
 
-    public function changePassword(String $username, String $password, String $newPassword){
+    public function changePassword( $username,  $password,  $newPassword){
         if (empty($_COOKIE["userID"])
             && $_COOKIE["userID"] != $this->authentication($username, $password)){
             $this->notAuthentication();
@@ -109,7 +109,7 @@ class DatabaseHandler
                     SET password= ? 
                     WHERE userID = ?";
             $stmt = $this->pdoForCOMP208->prepare($sql);
-            $stmt->execute([$newPassword, $_COOKIE["userID"]]);
+            $stmt->execute(array($newPassword, $_COOKIE["userID"]));
             if ($_COOKIE["userID"] == $this->authentication($username, $newPassword)){
                 $this->querySuccessfully("true");
             }else{
@@ -120,7 +120,7 @@ class DatabaseHandler
         }
     }
 
-    private function generateID(String $username)
+    private function generateID( $username)
     {
         $idNum = (int)abs(crc32($username. time()) / 10000);
         $id = strval(date("Y") % 100 * 1000000 + $idNum);
@@ -128,7 +128,7 @@ class DatabaseHandler
                 FROM user 
                 WHERE userID = $id";
         $stmt = $this->pdoForCOMP208->query($sql);
-        return (empty($stmt->fetch()))? $id : $this->generateID($username);
+        return ($stmt->columnCount())? $id : $this->generateID($username);
     }
 
 
@@ -143,17 +143,17 @@ class DatabaseHandler
         echo("401 UNSUPPORTED TRANSACTION");
     }
 
-    function duplicatedParams(String $reason){
+    function duplicatedParams( $reason){
         echo("402 ".$reason);
     }
 
-    function notAuthentication(String $reason)
+    function notAuthentication( $reason)
     {
         echo("403 ".$reason);
     }
 
 
-    function badParams(String $reason)
+    function badParams( $reason)
     {
         echo("404 ".$reason);
     }

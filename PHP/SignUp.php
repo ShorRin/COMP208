@@ -11,8 +11,8 @@ header('Access-Control-Allow-Origin: *');
 define("STUDENT_AUTHORITY", 0);
 
 /**********Main**********/
-$databaseHandler = new DatabaseHandler();
 
+$databaseHandler = new DatabaseHandler();
 if (empty($_REQUEST["username"]))
     $databaseHandler->badParams("USERNAME");
 else if (empty($_REQUEST["password"]))
