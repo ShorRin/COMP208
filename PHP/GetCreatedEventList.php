@@ -1,6 +1,6 @@
 <?php 
 header('Access-Control-Allow-Origin: *');
-include 'EstablishDBCon.php';
+include 'establishDBCon.php';
     
     $userID = $_REQUEST["userID"];
     $userName = $_REQUEST["userName"];// userName 就是 登陆的账户名？
@@ -16,17 +16,20 @@ include 'EstablishDBCon.php';
         global $pdo;
         global $userName, $orderBy;
         
+        $table = "<table border='1'>";
+        
         try{
         $pdo->beginTransaction();
         $sql = "SELECT eventID, eventName, founderName, startTime, endTime, popularity, locationID, brief FROM event ORDER BY $orderBy";
         $set = $pdo->query($sql); 
-        if(isset($set)){
+
+        if($set->rowCount() == 0){
         	foreach ($set as $row) {
             // （除去，不是该admin创建的）
             if(!($row["founderName"] == $userName)){
                 continue;
             }
-            echo "<tr>".
+            $table .= "<tr>".
                     "<td id=".$row["eventID"].">".$row["eventID"]."</td>" .
                     "<td>".$row["eventName"]."</td>" .
                     "<td>".$row["founderName"]."</td>" .
@@ -40,6 +43,9 @@ include 'EstablishDBCon.php';
                 "</tr>";
             }
 
+        $table .= "</table>";
+        echo $table;
+        
         }else{
         	echo "You have not created a event.";	
         }
