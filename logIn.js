@@ -10,11 +10,11 @@ function closeUp() {
         $("#loginButton").text("Connecting...");
         $.post("http://localhost/comp208/PHP/LogIn.php", {username: name, password: psw}, function(response){
             console.log(response);
-            if(response.includes("000")||response.includes("100")){       //response返回字符串格式为000+" "+userID/100+" "+userID
+            if(response.includes("100")){       //response返回字符串格式为000+" 0/1 "+userID or 100+" 0/1 "+userID
                 alert("Log in succeed!");
-                thisUserID = response.substring(4); 
+                thisUserID = response.substring(6); 
                 thisUserName = name;
-                thisAuthority = response.substring(0,1);
+                thisAuthority = response.substring(4,5);
                 setCookie("userID",thisUserID);     //於：设置了cookie，刷新不会重置登录状态，
                 setCookie("userName",thisUserName); //设置cookie使用的jq的方法（在cookie.js）里，没有用php的方法，如要修改，只需要修改cookie.js的方法即可
                 setCookie("authority",thisAuthority);

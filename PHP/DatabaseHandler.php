@@ -75,9 +75,9 @@ class DatabaseHandler
         try {
             $userID = $this->authentication($username, $password);
             if(substr($userID,0,1) == "0"){                 //根据返回的userID前是0/1
-                $this->querySuccessfully(substr($userID,1));
+                $this->querySuccessfully($userID);
             }else if(substr($userID,0,1) == "1"){
-                $this->adminSuccessfully(substr($userID,1));    //返回100+ID或者200+ID
+                $this->querySuccessfully($userID);    //返回100+ID或者200+ID
             }
             setcookie("userID", $userID, 0, '/');
             //$this->querySuccessfully($userID);
@@ -100,9 +100,9 @@ class DatabaseHandler
         if ($password != $result["password"])
             throw new PDOException("PASSWORD");
         if($result["authority"] == 0){
-            return "0".$result["userID"];
+            return "0 ".$result["userID"];
         }else if($result["authority"] == 1){    //於：根据authority，在返回的userID前加0/1
-            return "1".$result["userID"];
+            return "1 ".$result["userID"];
         }
         
     }
@@ -169,9 +169,9 @@ class DatabaseHandler
 
     function querySuccessfully($resultStr)
     {
-        echo "000 ".$resultStr;
-    }
-    function adminSuccessfully($resultStr){
         echo "100 ".$resultStr;
     }
+    /*function adminSuccessfully($resultStr){
+        echo "100 ".$resultStr;
+    }*/
 }
