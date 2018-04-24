@@ -31,19 +31,18 @@ function createNewEvent(){
     var locationID = document.getElementById("selectLocation").value;
     var brief = document.getElementById("eventBrief").value;
     // console.log(eventName + " " + type + " " + startTime + " " + endTime+ " "+locationID) //debug
-    $.post("http://localhost/comp208/PHP/createNewEvent admin.php",
+    $.post("http://localhost/comp208/PHP/CreateNewEvent.php",
     	{founderName: founderName, eventName: eventName, type: type, startTime: startTime, 
     		endTime: endTime, locationID: locationID,  brief: brief},
     		function(data){
     			console.log(data) //debug
     			$("#creationWindow").html(data);
     		});
-    return false;
 }
 
 function showLocationOptions(){
 	console.log("showAllLocation() called")
-	$.post("http://localhost/comp208/PHP/showAllLocationID.php",
+	$.post("http://localhost/comp208/PHP/ShowAllLocationID.php",
 		function(data){
 			$("#selectLocation").html(data);
 		});

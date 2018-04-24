@@ -63,13 +63,13 @@ function addMarker(position, locName, inID, start, end, eventIDMAP){
     var button;
     if(eventIDMAP.substring(0,1)=="M"){
         listType = eventList;
-        button = '<button onclick="delEventFromMylist('+listType[inID].eventID+','+'this'+')">'+'remove '+listType[inID].eventID+'</button>';
+        button = '<button onclick="delEventFromMylist('+listType[inID].eventID+','+'this'+')">'+'remove '+/*listType[inID].eventID+*/'</button>';
     }else if(eventIDMAP.substring(0,1)=="A"){
         listType = allEventsList;
-        button = '<button onclick="addEventToMylist('+listType[inID].eventID+','+'this'+')">'+'add '+listType[inID].eventID+'</button>';
+        button = '<button onclick="addEventToMylist('+listType[inID].eventID+','+'this'+')">'+'add '+/*listType[inID].eventID+*/'</button>';
     }else if(eventIDMAP.substring(0,1)=="P"){
         listType = popularList;
-        button = '<button onclick="addEventToMylist('+listType[inID].eventID+','+'this'+')">'+'add '+listType[inID].eventID+'</button>';
+        button = '<button onclick="addEventToMylist('+listType[inID].eventID+','+'this'+')">'+'add '+/*listType[inID].eventID+*/'</button>';
     }
     //please convert the content to the contentString here
     var contentString = '<div id="content">'+

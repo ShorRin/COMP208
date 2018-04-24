@@ -27,13 +27,13 @@ function showFullClock(){
     }
 }
 
-function viewNext(){
+/*function viewNext(){
     loadList();
     addSite(eventList[0].locationID, eventList[0].innerID);
-}
+}*/
 
 
-function viewPop(){
+/*function viewPop(){
     var popList = [];
     $.post("http://localhost/PHP/getMyList.php",{userID:thisUserID, orderBy:"popularity"},data);
     strings = data.split(";");
@@ -58,7 +58,7 @@ function viewPop(){
     for(var i = 0; i < counter; i++){
         addSite(popList[i].locationID, popList[i].innerID);
     }
-}
+}*/
 
 function refresh(){
     allLine();

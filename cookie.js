@@ -17,6 +17,9 @@ function delAllCookie(){
     $.cookie("toDate", null);
     $.cookie("fromDate2", null);
     $.cookie("toDate2", null);
+    $.cookie("fromDate3", null);
+    $.cookie("toDate3", null);
     $.cookie("currentMenu",null);
-    setCookie('isSideNavOpen',null);
+    $.cookie('isSideNavOpen',null);
+    $.cookie('authority',null);
 }
