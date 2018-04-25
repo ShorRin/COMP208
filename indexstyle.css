@@ -1,5 +1,5 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:300);
-
+ 
 .form {
     top: 30%;
     width: 360px;
@@ -50,16 +50,16 @@
 .form .register-form {
     display: none;
 }
-
-
-
-
+ 
+ 
+ 
+ 
 #map {
     position: relative;
     height: 100%;
     z-index: 0;
 }
-
+ 
 #login{
     position: absolute;
     z-index: 2;
@@ -67,14 +67,14 @@
     height: 100%;
     width: 100%;
 }
-
+ 
 .toolpanel{
     z-index: 1;
     position: absolute;
     bottom: 2px;/*2px;22px;*/
     right: 2px;/*2px;45px*/
 }
-
+ 
 .btn-group button{
     background-color: #262626;
     border: 0px #818181;
@@ -85,8 +85,8 @@
     cursor: pointer;
     float: left;
 }
-
-
+ 
+ 
 .clock button{
     width: 150px;
     height: 50px;
@@ -99,37 +99,37 @@
     transition: 0.1s;
     font-size: large;
 }
-
+ 
 .toolpanel button:hover{
     background-color: #818181;
 }
-
-
+ 
+ 
 html, body {
     height: 100%;
     margin: 0;
     padding: 0;
 }
-
+ 
 ::-webkit-scrollbar {
     width: 5px;
 }
-
+ 
 /* Track */
 ::-webkit-scrollbar-track {
     background: inherit;
 }
-
+ 
 /* Handle */
 ::-webkit-scrollbar-thumb {
     background: #888;
 }
-
+ 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
     background: #555;
 }
-
+ 
 .sidenav {
     height: 100%; /* 100% Full-height */
     position: fixed; /* Stay in place */
@@ -137,11 +137,11 @@ html, body {
     top: 0; /* Stay at the top */
     left: 0;
     background-color: #111; /* Black*/
-
+ 
     padding-top: 20px; /* Place content 60px from the top */
     transition: 0.2s; /* 0.5 second transition effect to slide in the sidenav */
 }
-
+ 
 /* The navigation menu links */
 .sidenav a {
     padding: 8px 8px 8px 32px;
@@ -151,12 +151,12 @@ html, body {
     display: block;
     transition: 0.3s;
 }
-
+ 
 /* When you mouse over the navigation links, change their color */
 .sidenav a:hover {
     color: #f1f1f1;
 }
-
+ 
 .sidenav .openbtn {
     position: absolute;
     top: 44%;
@@ -164,7 +164,7 @@ html, body {
     font-size: 36px;
     margin-left: 50px;
 }
-
+ 
 .sidenavcon{
     top: 0;
     height: 100%;
@@ -176,7 +176,7 @@ html, body {
     background-color: inherit;
     color: gray;
 }
-
+ 
 /* Style the buttons that are used to open the tab content */
 .tab button {
     background-color: inherit;
@@ -189,17 +189,17 @@ html, body {
     transition: 0.3s;
     color: white;
 }
-
+ 
 /* Change background color of buttons on hover */
 .tab button:hover {
     background-color: #ddd;
 }
-
+ 
 /* Create an active/current tablink class */
 .tab button.active {
     background-color: #818181;
 }
-
+ 
 /* Style the tab content */
 .tabcontent {
     height: 95%;
@@ -211,7 +211,7 @@ html, body {
     border: 1px solid inherit;
     animation: fadeEffect 1s;
 }
-
+ 
 .tabcontent a{
     width: 75%;
     height: 45px;
@@ -222,40 +222,40 @@ html, body {
     font-size: 30px;    /*於：修改了样式*/
     text-align: left;
 }
-
+ 
 .tabcontent a:hover{
     background-color: #ddd;
     color: black;
 }
-
+ 
 ul.myList{
     list-style-type: none;
     margin: 0;
     padding: 0;
 }
-
+ 
 #liveresult{
     margin-top: 13%;
 }
-
+ 
 ul#resultlineup{
     list-style-type: none;
     margin: 0;
     padding: 0;
 }
-
+ 
 /* Go from zero to full opacity */
 @keyframes fadeEffect {
     from {opacity: 0;}
     to {opacity: 1;}
 }
-
+ 
 .username{
     position: absolute;
     right: 2px;
     top: 2px;
 }
-
+ 
 .username button{
     background-color: #262626;
     border: 0px #818181;
@@ -264,17 +264,17 @@ ul#resultlineup{
     width: 150px;
     height: 70px;
 }
-
+ 
 .username button:hover{
     background-color: indianred;
 }
-
+ 
 .searcharea {
     overflow: hidden;
     background-color: inherit;
 }
-
-
+ 
+ 
 /* Style the search box inside the navigation bar */
 .searcharea input[type=text] {
     background-color: inherit;
@@ -286,12 +286,12 @@ ul#resultlineup{
     margin-left: 28px;
     font-size: 17px;
 }
-
+ 
 /*於： 下面这些是我写的*/
 div#startTime{float: right;}
-
+ 
 div#endTime{float: right;}
-
+ 
 table#dateFilter {
     width: 50%;
     /*height: 66px;*/   /*自动调整高度，不需要设置固定高度*/
@@ -313,13 +313,24 @@ ul.popularList{
     margin: 0;
     padding: 0;
 }
+.courses{
+    font-family: "Roboto", sans-serif;
+    outline: 0;
+    background: #f2f2f2;
+    width: 100%;
+    border: 0;
+    margin: 0 0 15px;
+    padding: 15px;
+    box-sizing: border-box;
+    font-size: 14px;
+}
 #fromDate{width: 130px;text-align: center}
 #toDate{width: 130px;text-align: center}
 #fromDate2{width: 130px;text-align: center}
 #toDate2{width: 130px;text-align: center}
 #fromDate3{width: 130px;text-align: center}
 #toDate3{width: 130px;text-align: center}
-
+ 
 .black_overlay{  display: none;  position: absolute;  top: 0%;  left: 0%;  width: 100%;  height: 100%;  background-color: grey;  
     z-index:1001;  -moz-opacity: 0.8;  opacity:.400;  filter: alpha(opacity=80);  }  
     .white_content {  display: none;  position: absolute;  top: 25%;  left: 25%;  width: 50%;  height: 50%;  padding: 16px;  border: 8px solid grey;

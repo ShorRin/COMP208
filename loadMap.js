@@ -40,7 +40,7 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
 
 //add new tags to the map with description
 function addSite(locID, inID, startTimePar, endTimePar,eventIDMAP){      //於：修改了参数，时间变成通过参数传入,传入了eventID(MAP)
-    $.post("http://localhost/comp208/PHP/getLocationInfo.php",{locationID: locID},          //於：修改返回值的处理
+    $.post("https://aooblog.me/COMP208/PHP/GetLocationInfo.php",{locationID: locID},          //於：修改返回值的处理
     function(locInfo){
         thisLoc = locInfo.split(";");
         var locName = thisLoc[0];       //於：字符串转float，考虑数据库修改数据类型

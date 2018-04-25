@@ -65,6 +65,7 @@ function signUp() {
         if (!email) $("[name=emailreg]")[0].placeholder = "you did not enter email address";
         return;
     }
+    $("#signupButton").text("Connecting...");
     $.post("https://aooblog.me/COMP208/PHP/SignUp.php", {
         username: name,
         password: psw,
@@ -83,17 +84,20 @@ function signUp() {
     function signUpSuccess() {
         alert("Register succeed!");
         thisUserName = name;
-        setTimeout("document.getElementById(\"login\").style.display = \"none\"", 3000);
+        //setTimeout("document.getElementById(\"login\").style.display = \"none\"", 3000);
+        location.reload();
     }
 
     /*Local Method for the condition if the sign is failed*/
     function signUpFail(response) {
+        $("#signupButton").text("Create");
         if (response.includes("USERNAME")) {
             let nameDiv = $("[name=unamereg]")[0];
             nameDiv.value = "";
             nameDiv.placeholder = "the username has been used";
         } else if (response.includes("EMAIL")) {
-            let emailDiv = $("#emailreg").value;
+            console.log("email");
+            let emailDiv = $("[name=emailreg]")[0];
             emailDiv.value = "";
             emailDiv.placeholder = "the email address has been used";
         }
@@ -152,17 +156,19 @@ function backTo() {
 }
 
 function sendMail() {
-    alert("Enter");
     let email = $("#emailback").val();
     let username = $("#unameback").val();
+    $("#sendButton").text("Sending..");
     $.post("https://aooblog.me/COMP208/PHP/changePassword.php", {
         email: email,
         username: username
     }, function (response) {
-        alert("enterInner");
         if (response.includes("100 true"))
             alert("Please wait for email");
-        else
+        else{
+            $("#sendButton").text("Send");
             alert(response);
+        }
+            
     });
 }

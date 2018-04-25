@@ -2,11 +2,11 @@ var eventList = [];
 var allEventsList = [];
 var popularList = [];
 function allLine(){
-    //$("#showMyList").empty();   //每次刷新list前清空当前list(不需要了)
     eventList=[];
     $("#showMyList").html("<a href='javascript:void(0)'>Loading...</a>");
-    $.post("http://localhost/comp208/PHP/GetEventList.php",{userID:thisUserID, orderBy:"startTime", userList:true},
+    $.post("https://aooblog.me/COMP208/PHP/GetEventList.php",{userID:thisUserID, orderBy:"startTime", userList:true},
     function(data){
+        console.log(data);
         strings = data.split(";");
         for(var i = 0; i<strings.length-1; i++){        //这里i<strings.length-1，去除了那个多出来的空元素
             thisEvent = strings[i].split(",");
@@ -54,7 +54,7 @@ function allLine(){
 }
 
 function loadList(){
-    $.post("http://localhost/comp208/PHP/getEventList.php",{userID:thisUserID, orderBy:"startTime", userList:true},
+    $.post("https://aooblog.me/COMP208/PHP/getEventList.php",{userID:thisUserID, orderBy:"startTime", userList:true},
         function(data){
         console.log(data);
         strings = data.split(";");
@@ -112,8 +112,9 @@ function showAllEventsList(){
     //$("#showAllEventsList").empty();   //每次刷新list前清空当前list(不需要了)
     allEventsList=[];
     $("#showAllEventsList").html("<a href='javascript:void(0)'>Loading...</a>");
-    $.post("http://localhost/comp208/PHP/GetEventList.php",{userID:thisUserID, orderBy:"startTime", userList:false},
+    $.post("https://aooblog.me/COMP208/PHP/GetEventList.php",{userID:thisUserID, orderBy:"startTime", userList:false},
     function(data){
+        console.log(data);
         strings = data.split(";");
         for(var i = 0; i<strings.length-1; i++){        //这里i<strings.length-1，去除了那个多出来的空元素
             thisEvent = strings[i].split(",");
@@ -150,7 +151,7 @@ function showPopularList(){
     //$("#showPopularList").empty();   //每次刷新list前清空当前list(不需要了)
     popularList=[];
     $("#showPopularList").html("<a href='javascript:void(0)'>Loading...</a>");
-    $.post("http://localhost/comp208/PHP/GetEventList.php",{userID:thisUserID, orderBy:"popularity DESC", userList:false},
+    $.post("https://aooblog.me/COMP208/PHP/GetEventList.php",{userID:thisUserID, orderBy:"popularity DESC", userList:false},
     function(data){
         strings = data.split(";");
         for(var i = 0; i<strings.length-1; i++){        //这里i<strings.length-1，去除了那个多出来的空元素
@@ -209,7 +210,7 @@ function newLine(thisInnerID, thisEventName, thisStartTime, thisEndTime, thisLoc
 function addEventToMylist(eventID, button){
     $(button).text("Processing...");
     $(button).attr("onclick","javascript:void(0)");     //於：点击add后文字改变
-    $.post("http://localhost/comp208/PHP/AddEvent.php",{eventID:eventID,userID:thisUserID},
+    $.post("https://aooblog.me/COMP208/PHP/AddEvent.php",{eventID:eventID,userID:thisUserID},
 	function(data){
 		if(data.indexOf("Success!") == 0){
 			window.alert(data);
@@ -229,7 +230,7 @@ function addEventToMylist(eventID, button){
 function delEventFromMylist(eventID, button){
     $(button).html("Processing...");
     $(button).attr("onclick","javascript:void(0)");     //於：点击remove后文字改变
-    $.post("http://localhost/comp208/PHP/DelEvent.php",{eventID:eventID,userID:thisUserID},
+    $.post("https://aooblog.me/COMP208/PHP/DelEvent.php",{eventID:eventID,userID:thisUserID},
 	function(data){
 		if(data.indexOf("Success!") == 0){
 			window.alert(data);

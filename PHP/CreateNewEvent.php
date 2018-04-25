@@ -11,7 +11,7 @@ include 'establishDBCon.php';
 	$locationSelection = $_REQUEST["locationID"]; // int : ID
     // 什么格式？ID 的话：那就是取自前端的一个select menu咯？ 因为用户又不知道也不能记忆那么多id
     $briefDescription = $_REQUEST["brief"];
-    $pdo = establishDatabaseConnection("localhost","comp208","root","root");
+    $pdo = establishDatabaseConnection("localhost","comp208","aooblocc_group23","12345");
 
     //call creation function
     createNewEvent();

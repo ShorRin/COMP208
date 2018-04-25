@@ -6,8 +6,8 @@
     $orderBy = $_REQUEST["orderBy"];    //orderBy用于结果排序，一般为startTime(获取热门event时用popularity)
     $userList = $_REQUEST["userList"];  //是否为userlist，true或false，post时直接写，不要加""
 
-    $pdo = establishDatabaseConnection("localhost","comp208","root","root");
-    $userInfoPdo = establishDatabaseConnection("localhost","user_info","root","root");
+    $pdo = establishDatabaseConnection("localhost","comp208","aooblocc_group23","12345");
+    $userInfoPdo = establishDatabaseConnection("localhost","user_info","aooblocc_group23","12345");
     showEventList();
 
     function showEventList(){
@@ -33,6 +33,7 @@
                     $row["brief"].",".
                     $row["isAcademic"].";";
         }
+
         $pdo->commit();
     }
     
@@ -40,7 +41,7 @@
         global $userInfoPdo;
         global $userID;
         $list = array();
-        $tableName = "id".$userID;
+        $tableName = "ID".$userID;
         $userInfoPdo->beginTransaction();
         $sql = "SELECT eventID FROM $tableName";
         $rows = $userInfoPdo->query($sql);

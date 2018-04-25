@@ -3,7 +3,7 @@ header('Access-Control-Allow-Origin: *');
 include 'EstablishDBCon.php';
     
 
-    $pdo = establishDatabaseConnection("localhost","comp208","root","root");
+    $pdo = establishDatabaseConnection("localhost","comp208","aooblocc_group23","12345");
 	showAllLocationID();
 
 function showAllLocationID(){

@@ -21,6 +21,7 @@ else if (empty($_REQUEST["email"]))
     $databaseHandler->badParams("EMAIL");
 else
     changeTemplePassword();
+    
 
 
 /**********Functions**********/
@@ -29,7 +30,7 @@ function changeTemplePassword(){
     global $databaseHandler;
     $tempPassword = generateTemplePassword();
     sendMail($_REQUEST["email"], "your Temple Password", "PW:\n".$tempPassword."\nBest Wishes\nCOMP 208 Group 23");
-    $databaseHandler->changePassword($tempPassword, $_REQUEST["email"], $_REQUEST["username"]);
+    $databaseHandler->changePassword($_REQUEST["username"], $_REQUEST["email"], $tempPassword);
 }
 
 function generateTemplePassword(){
@@ -55,7 +56,7 @@ function sendMail($to, $title, $content)
 
     //邮件内容
     $phpMailer->CharSet = 'utf-8';
-    $phpMailer->From = 'comp208group@COMP208Group.me';
+    $phpMailer->From = 'comp208group@aooblog.me';
     $phpMailer->FromName = 'COMP208Group';
     $phpMailer->Subject = $title;
     $phpMailer->Body = $content;
@@ -63,7 +64,7 @@ function sendMail($to, $title, $content)
     $phpMailer->AddAddress($to);
 
     try {
-        echo $phpMailer->send();
+        $phpMailer->send();
     } catch (Exception $e) {
         echo $e->getMessage();
     }

@@ -31,7 +31,7 @@ function createNewEvent(){
     var locationID = document.getElementById("selectLocation").value;
     var brief = document.getElementById("eventBrief").value;
     // console.log(eventName + " " + type + " " + startTime + " " + endTime+ " "+locationID) //debug
-    $.post("http://localhost/comp208/PHP/CreateNewEvent.php",
+    $.post("https://aooblog.me/COMP208/PHP/CreateNewEvent.php",
     	{founderName: founderName, eventName: eventName, type: type, startTime: startTime, 
     		endTime: endTime, locationID: locationID,  brief: brief},
     		function(data){
@@ -42,7 +42,7 @@ function createNewEvent(){
 
 function showLocationOptions(){
 	console.log("showAllLocation() called")
-	$.post("http://localhost/comp208/PHP/ShowAllLocationID.php",
+	$.post("https://aooblog.me/COMP208/PHP/ShowAllLocationID.php",
 		function(data){
 			$("#selectLocation").html(data);
 		});
@@ -53,7 +53,7 @@ function showLocationOptions(){
 
 function getCreatedEventList(){
 	console.log("getCreatedEventList() called")
-	$.post("http://localhost/comp208/PHP/GetCreatedEventList.php",
+	$.post("https://aooblog.me/COMP208/PHP/GetCreatedEventList.php",
 		{userID: thisUserID, userName: thisUserName, orderBy: "startTime"},
 		function(data){
 			$("#createdEventsWindow").html(data);

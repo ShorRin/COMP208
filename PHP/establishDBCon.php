@@ -3,7 +3,7 @@ header('Access-Control-Allow-Origin:*');
 
 function establishDatabaseConnection($hostname,$database,$username,$password) {
         $db_charset = "utf8mb4";
-        $dsn = "mysql:host=$hostname;dbname=$database;charset=$db_charset";
+        $dsn = "mysql:host=$hostname;dbname=aooblocc_$database;charset=$db_charset";
         $opt = array(
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,

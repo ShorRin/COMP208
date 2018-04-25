@@ -1,13 +1,13 @@
 <?php 
 header('Access-Control-Allow-Origin: *');
-include 'establishDBCon.php';
+include 'EstablishDBCon.php';
     
     $userID = $_REQUEST["userID"];
     $userName = $_REQUEST["userName"];// userName 就是 登陆的账户名？
     $orderBy = $_REQUEST["orderBy"];
 
 
-    $pdo = establishDatabaseConnection("localhost","comp208","root","root");
+    $pdo = establishDatabaseConnection("localhost","comp208","aooblocc_group23","12345");
 
     showCreatedEventsList();
 

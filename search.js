@@ -93,5 +93,5 @@ function goSdef(id){
 }
 
 function addEvent(id) {
-    $.post("http://localhost/comp208/PHP/AddEvent.php",{userID:thisUserID, eventID:searchRes[id].eventID},data);
+    $.post("https://aooblog.me/COMP208/PHP/AddEvent.php",{userID:thisUserID, eventID:searchRes[id].eventID},data);
 }*/

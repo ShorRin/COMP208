@@ -28,7 +28,16 @@
 <body>
 
 <div id="login">
-
+    <script>
+        if(getCookie("userID")!=undefined&&getCookie("userID")!="null"){    //於：如果cookie存在，不需要登录
+            $("#login").hide();
+            thisUserName = getCookie("userName");       //於：用cookie给变量赋值
+            thisUserID = getCookie("userID");
+            thisAuthority = getCookie("authority");
+        }else{
+            $("#login").show();
+        }
+    </script>
     <div class="form">
         <div class="register-form" id="2" style="display: none;">
             <input type="text" placeholder="name" id="unamereg" name="unamereg"/>
@@ -47,13 +56,13 @@
                     });
                 </script>
             </select>
-            <button onclick="signUp()">create</button>
+            <button id="signupButton" onclick="signUp()">create</button>
             <p class="message">Already registered? <a href="javascript:void(0) " onclick="changeForm()">Sign In</a></p>
         </div>
         <div class="login-form" id="1" style="display: block;">
             <input type="text" placeholder="username" id="unamein" name="unamein"/>
             <input type="password" placeholder="password" id="pswin" name="pswin"/>
-            <button onclick="closeUp()">login</button>
+            <button id="loginButton" onclick="closeUp()">login</button>
             <p class="message">Not registered? <a href="javascript:void(0) " onclick="changeForm()">Create an
                 account</a></p>
             <p class="message">Forget Password? <a href="javascript:void(0) " onclick="backTo()">Get back</a></p>
@@ -61,7 +70,7 @@
         <div class="getback-form" id="3" style="display: none;">
             <input type="text" placeholder="username" id="unameback"/>
             <input type="text" placeholder="email address" id="emailback"/>
-            <button onclick="sendMail()">send</button>
+            <button id="sendButton" onclick="sendMail()">send</button>
             <p class="message">Or you can just <a href="javascript:void(0) " onclick="backTo()">Go Back</a></p>
         </div>
     </div>
