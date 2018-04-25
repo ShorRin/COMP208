@@ -131,18 +131,33 @@ class DatabaseHandler
         /*Return a String includes both "authority and UserID" */
         return $result["authority"]." ".$result["userID"];
     }
-
+    
     public function changePassword($username, $email, $newPassword){
         try {
-            $sql = "UPDATE user SET password= ? 
-                    WHERE userName = ? AND email = ?";
+            $sql = "SELECT email, userID
+                    FROM  user 
+                    WHERE userName = ?";
             $stmt = $this->pdoForCOMP208->prepare($sql);
-            echo "$newPassword, $username, $email";
-            $stmt->execute(array($newPassword, $username, $email));
-            $return = ($stmt->rowCount())? "true" :"false";
-            $this->querySuccessfully($return);
+            $stmt->execute([$username]);
+            if(!$stmt->rowCount())
+                throw new PDOException("USERNAME");
+            $result = $stmt->fetch();
+            if($result["email"]!=$email)
+                throw new PDOException("$email\n$result[email]");
+
+            $sql = "UPDATE user SET password= ? 
+                    WHERE user.userID = $result[userID]";
+            $stmt = $this->pdoForCOMP208->prepare($sql);
+            if($stmt->execute([$newPassword])){
+                $this->querySuccessfully("TRUE");
+                return true;
+            }else{
+                $this->querySuccessfully("FALSE");
+                return false;
+            }
         } catch (PDOException $e) {
-            $this->errorSQL();
+            $this->badParams($e->getMessage());
+            return false;
         }
     }
 

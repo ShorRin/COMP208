@@ -158,17 +158,29 @@ function backTo() {
 function sendMail() {
     let email = $("#emailback").val();
     let username = $("#unameback").val();
-    $("#sendButton").text("Sending..");
     $.post("https://aooblog.me/COMP208/PHP/changePassword.php", {
         email: email,
         username: username
     }, function (response) {
-        if (response.includes("100 true"))
-            alert("Please wait for email");
-        else{
-            $("#sendButton").text("Send");
-            alert(response);
-        }
-            
+        if (response.includes("100"))
+            changeSuccess(response);
+        else if(response.includes("404"))
+            changeFail(response);
     });
+
+    function changeSuccess(response) {
+        if(response.includes("TRUE"))
+            alert("Please waiting for the email");
+        else if (response.includes("FALSE"))
+            alert("Please try again later");
+
+    }
+    function changeFail(response) {
+        if(response.includes("EMAIL"))
+            alert("Wrong Email");
+        else if (response.includes("USERNAME"))
+            alert("DO not Exist");
+        else
+            alert(response);
+    }
 }

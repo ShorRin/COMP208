@@ -77,39 +77,59 @@
 </div>
 
 <div id="map"></div>
-<div id="createdEventsWindow" class="white_content"></div>
-
+<!-- admin: Created Events Window -->
+<div id="createdEventsWindow" class="white_content" style="background:rgb(231, 235, 235) ;"></div>
 <div id="fade1" class="black_overlay" onclick='hideCreatedEventsWindow()'></div>
+	
+<!-- admin: create event form -->
 <div id="creationWindow" class="white_content">
-    <form method="post" name="form">
-        Event Name: <br>
-        <input type="text" name="eventName" id="eventName" placeholder="event name" size="20"><br>
-        Founder:<br>
-        <input type="text" name="founderName" id="founderName" placeholder="your name" size="20"><br>
-        Event Type:<br>
-        <input type="radio" name="eventType" id="eventType1" value="academic">Academic
-        <input type="radio" name="eventType" id="eventType2" value="non-academic">Nonacademic<br>
-        Start: <br>
-        <input type="text" name="startTime" id="startTime" placeholder="start time in: YYYY-MM-DD HH:MM:SS"
-               size="60"><br>
-        End: <br>
-        <input type="text" name="endTime" id="endTime" placeholder="end time in: YYYY-MM-DD HH:MM:SS" size="60"><br>
-        <!-- location ID return 具体地名 -->
-        Location:<br>
-        <select name="selectLocation" id="selectLocation" class="menu">
-            <!-- loading options -->
-            <script>showLocationOptions();</script>
-        </select><br>
-        Brief:<br>
-        <textarea id="eventBrief" name="brief" rows="5" cols="70" placeholder="brief description"></textarea><br>
-        <button type="button" onclick="createNewEvent()"> Create</button>
-    </form>
-</div>
-<div id="fade2" class="black_overlay" onclick='hideCreationWindow()'></div>
+		<form method="post" id="creationForm" name = "form">
+			<h2>Create new event</h2>
+			Event Name: <br>
+			<input type = "text" name = "eventName" id = "eventName" size = "40" placeholder="<= 40 words"><br>
+            <span class="error" id = "eventNameValidation"></span><br>
+			
+            Event Type:<br>
+			<input type = "radio" name="eventType" id = "academicType" value="academic">
+            <label for="academicType">Academic</label> 
+			<input type = "radio" name="eventType" id = "nonacademicType" value="non-academic">
+            <label for="nonacademicType">Non-academic</label> 
+            <br>
+            <span class="error" id = "eventTypeValidation"></span><br>
+
+			Start at: <br>
+			<input id="startTime" name = "startTime" type="datetime-local" max="" onchange="setCreationMinMaxDate('from')"/>
+			<!-- datetime-local(hh:mm) 与 mySQL的 datetime(hh:mm:ss) 允许无缝对接，虽然差了ss位，默认为00 -->
+            <span class="error" id = "startTimeValidation"></span><br>
+
+			End at: <br>
+			<input id="endTime" name = "endTime" type="datetime-local" min="" onchange="setCreationMinMaxDate('to')"/>
+            <span class="error" id = "endTimeValidation"></span><br><br>
+			
+            <!-- location ID return 具体地名 -->
+			Location:<br>
+			<select name="selectLocation" id = "selectLocation"  class = "menu">
+			     <!-- loading options -->
+			     <script>showLocationOptions();</script>
+			</select><br>
+            <span class="error" id = "locationValidation"></span><br>
+			
+            Brief:<br>
+			<textarea id = "eventBrief" name = "brief" rows="5" cols="70" placeholder = "brief description..."></textarea><br>
+            <span class="error" id = "briefValidation"></span><br>
+
+			<span>(Your name will be used as the founder)</span><br>
+            <p id="creationResponse"></p>
+			<button type="button" onclick="createNewEvent(thisUserName);"> Create </button>
+            <input type="reset" value="Reset">
+			
+		</form>
+	</div>
+    <div id="fade2" class="black_overlay" onclick='hideCreationWindow()'></div>
 
 <div class="username">
+    <button id="createNewEventButton" onclick="popUpCreationWindow()">+</button>
     <button id="createdEventsButton" onclick="popUpCreatedEventsWindow(); getCreatedEventList()">Created Events</button>
-    <button id="createNewEventButton" onclick="popUpCreationWindow()"> +</button>
     <button onclick="logOut()" class="logout" onmouseover="showTex()" onmouseout="hideTex()" id="logout">
         <script>
             document.write(thisUserName);

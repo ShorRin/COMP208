@@ -23,15 +23,15 @@
             if(($userList=="true"&&!in_array($row['eventID'],$userEventIDList))||($userList=="false"&&in_array($row['eventID'],$userEventIDList))){
                 continue;
             }
-            echo $row["eventID"].",".
-                    $row["eventName"].",".
-                    $row["founderName"].",".
-                    $row["startTime"].",".
-                    $row["endTime"].",".
-                    $row["popularity"].",".
-                    $row["locationID"].",".
-                    $row["brief"].",".
-                    $row["isAcademic"].";";
+            echo $row["eventID"]."|*|".
+                    $row["eventName"]."|*|".
+                    $row["founderName"]."|*|".
+                    $row["startTime"]."|*|".
+                    $row["endTime"]."|*|".
+                    $row["popularity"]."|*|".
+                    $row["locationID"]."|*|".
+                    $row["brief"]."|*|".
+                    $row["isAcademic"]."|#*#|";
         }
 
         $pdo->commit();

@@ -21,7 +21,7 @@ else if (empty($_REQUEST["email"]))
     $databaseHandler->badParams("EMAIL");
 else
     changeTemplePassword();
-    
+
 
 
 /**********Functions**********/
@@ -29,8 +29,8 @@ else
 function changeTemplePassword(){
     global $databaseHandler;
     $tempPassword = generateTemplePassword();
-    sendMail($_REQUEST["email"], "your Temple Password", "PW:\n".$tempPassword."\nBest Wishes\nCOMP 208 Group 23");
-    $databaseHandler->changePassword($_REQUEST["username"], $_REQUEST["email"], $tempPassword);
+    $result = $databaseHandler->changePassword($_REQUEST["username"],$_REQUEST["email"], $tempPassword);
+    if($result) sendMail($_REQUEST["email"], "your Temple Password", "PW:\n".$tempPassword."\nBest Wishes\nCOMP 208 Group 23");
 }
 
 function generateTemplePassword(){

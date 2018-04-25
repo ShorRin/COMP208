@@ -1,6 +1,6 @@
 <?php 
 header('Access-Control-Allow-Origin: *');
-include 'establishDBCon.php';
+include 'EstablishDBCon.php';
 	
     
     $founderName = $_REQUEST["founderName"];
