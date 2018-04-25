@@ -18,7 +18,9 @@ if (empty($_REQUEST["username"]))
 else if (empty($_REQUEST["password"]))
     $databaseHandler->badParams("PASSWORD");
 else
-    $databaseHandler->transactionRegister($_REQUEST["username"], $_REQUEST["password"]);
+    $databaseHandler->transactionRegister(
+        $_REQUEST["username"], $_REQUEST["password"],
+        $_REQUEST["email"], $_REQUEST["programme"]);
 
 
 

@@ -42,18 +42,30 @@ class DatabaseHandler
         return new PDO($dsn, $db_username, $db_password, $opt);
     }
 
-    public function transactionRegister( $username,  $password){
+    public function transactionRegister($username,  $password, $email, $programme){
         try {
-            //INSERT
+            //Sub-transaction 01: INSERT new user into user table of the
             $this->pdoForCOMP208->beginTransaction();
 
+            /*SQL01 Query programme ID*/
+            $sql = "SELECT programmeID FROM program
+                    WHERE  programmeName=?";
+            $stmt = $this->pdoForCOMP208->prepare($sql);
+            $stmt->execute(array($programme));
+            $result = $stmt->fetch();
+            if ($programmeName = $result["programmeName"])
+                throw new PDOException("Programme Name");
+
+            /*SQL02 Insert new user*/
             $sql = "INSERT INTO 
-                        user(userID, userName, password, authority) 
-                    VALUES (?,?,?,?)";
+                        user(userID, userName, password, authority, email, programmeID) 
+                    VALUES (?,?,?,?,?,?)";
             $stmt = $this->pdoForCOMP208->prepare($sql);
             $newID = $this->generateID($username);
-            $stmt->execute(array($newID, $username, $password, 0));
+            $stmt->execute(array($newID, $username, $password, 0, $email, $programme));
 
+            //Sub-transaction 02: Create a table for user;
+            /*SQL03 Create table*/
             $this->pdoForUserInfo->beginTransaction();
             $sql = "CREATE TABLE ID$newID(
                         ScheduleID int(8) NOT NULL DEFAULT 0,
@@ -71,59 +83,55 @@ class DatabaseHandler
         }
     }
 
-    public function transactionAuthentication( $username,  $password){
+    public function transactionAuthentication($username, $password){
         try {
             $userID = $this->authentication($username, $password);
-            if(substr($userID,0,1) == "0"){                 //根据返回的userID前是0/1
-                $this->querySuccessfully($userID);
-            }else if(substr($userID,0,1) == "1"){
-                $this->querySuccessfully($userID);    //返回100+ID或者200+ID
-            }
             setcookie("userID", $userID, 0, '/');
-            //$this->querySuccessfully($userID);
+            $this->querySuccessfully($userID);
         } catch (PDOException $e) {
             $this->notAuthentication($e->getMessage());
         }
     }
 
-    private function authentication( $username,  $password){
+    public function getAllProgramme(){
+        try {
+            $sql = "SELECT programmeName, programmeID FROM program";
+            $stmt = $this->pdoForCOMP208->query($sql);
+            $resultArray = $stmt->fetchAll();
+            echo json_encode($resultArray) ;
+        } catch (PDOException $e) {
+            $this->errorSQL();
+        }
+    }
+
+    private function authentication($username, $password){
+        /*SQL Query UserID, pw, authority*/
         $sql = "SELECT userID, password, authority
                 FROM user
                 WHERE userName = ?";
         $stmt = $this->pdoForCOMP208->prepare($sql);
         $stmt->execute(array($username));
-        /*Checks if the username exist. 检查用户名是否存在。*/
+
+        /*Checks if the username exist. 检查用户名是否存在*/
         if($stmt->rowCount() == 0)
             throw new PDOException("USERNAME");
+
         /*Check if password is correct. 检查密码是否正确*/
         $result = $stmt->fetch();
         if ($password != $result["password"])
             throw new PDOException("PASSWORD");
-        if($result["authority"] == 0){
-            return "0 ".$result["userID"];
-        }else if($result["authority"] == 1){    //於：根据authority，在返回的userID前加0/1
-            return "1 ".$result["userID"];
-        }
-        
+
+        /*Return a String includes both "authority and UserID" */
+        return $result["authority"]." ".$result["userID"];
     }
 
-    public function changePassword( $username,  $password,  $newPassword){
-        if (empty($_COOKIE["userID"])
-            && $_COOKIE["userID"] != $this->authentication($username, $password)){
-            $this->notAuthentication();
-            return;
-        }
+    public function changePassword($username, $email, $newPassword){
         try {
-            $sql = "UPDATE user 
-                    SET password= ? 
-                    WHERE userID = ?";
+            $sql = "UPDATE user SET password= ? 
+                    WHERE userName = ? AND email = ?";
             $stmt = $this->pdoForCOMP208->prepare($sql);
-            $stmt->execute(array($newPassword, $_COOKIE["userID"]));
-            if ($_COOKIE["userID"] == $this->authentication($username, $newPassword)){
-                $this->querySuccessfully("true");
-            }else{
-                $this->querySuccessfully("false");
-            }
+            $stmt->execute(array($newPassword,$username, $email));
+            $this->querySuccessfully($stmt->rowCount()!=0);
         } catch (PDOException $e) {
             $this->errorSQL();
         }
@@ -171,7 +179,4 @@ class DatabaseHandler
     {
         echo "100 ".$resultStr;
     }
-    /*function adminSuccessfully($resultStr){
-        echo "100 ".$resultStr;
-    }*/
 }
