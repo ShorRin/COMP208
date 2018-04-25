@@ -7,9 +7,9 @@ function allLine(){
     $.post("https://aooblog.me/COMP208/PHP/GetEventList.php",{userID:thisUserID, orderBy:"startTime", userList:true},
     function(data){
         console.log(data);
-        strings = data.split(";");
+        strings = data.split("|#*#|");
         for(var i = 0; i<strings.length-1; i++){        //这里i<strings.length-1，去除了那个多出来的空元素
-            thisEvent = strings[i].split(",");
+            thisEvent = strings[i].split("|*|");
             var event = {
                 innerID: i,
                 eventID: thisEvent[0],
@@ -115,9 +115,9 @@ function showAllEventsList(){
     $.post("https://aooblog.me/COMP208/PHP/GetEventList.php",{userID:thisUserID, orderBy:"startTime", userList:false},
     function(data){
         console.log(data);
-        strings = data.split(";");
+        strings = data.split("|#*#|");
         for(var i = 0; i<strings.length-1; i++){        //这里i<strings.length-1，去除了那个多出来的空元素
-            thisEvent = strings[i].split(",");
+            thisEvent = strings[i].split("|*|");
             var event = {
                 innerID: i,
                 eventID: thisEvent[0],
@@ -153,9 +153,9 @@ function showPopularList(){
     $("#showPopularList").html("<a href='javascript:void(0)'>Loading...</a>");
     $.post("https://aooblog.me/COMP208/PHP/GetEventList.php",{userID:thisUserID, orderBy:"popularity DESC", userList:false},
     function(data){
-        strings = data.split(";");
+        strings = data.split("|#*#|");
         for(var i = 0; i<strings.length-1; i++){        //这里i<strings.length-1，去除了那个多出来的空元素
-            thisEvent = strings[i].split(",");
+            thisEvent = strings[i].split("|*|");
             var event = {
                 innerID: i,
                 eventID: thisEvent[0],
