@@ -66,17 +66,17 @@ function signUp() {
         if (!email) $("[name=emailreg]")[0].placeholder = "you did not enter email address";
         return;
     } 
-    if(/^[0-9a-zA-Z]+$/.test(name)){
+    if(/^[0-9a-zA-Z]+$/.test(name)&&name.length > 5 &&name.length<13){
         counter++;
     }else{
         $("[name=unamereg]")[0].value = ""; 
-        $("[name=unamereg]")[0].placeholder = "invalid username";
+        $("[name=unamereg]")[0].placeholder = "username: 6-12 characters";
     }
-	if(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/.test(psw)){
+	if(/^[a-zA-Z]{1,}/.test(psw)&&/^[0-9a-zA-Z]+$/.test(psw)&&psw.length > 5 &&psw.length<13){
         counter++;
     }else{
         $("[name=pswreg]")[0].value = ""; 
-        $("[name=pswreg]")[0].placeholder = "invalid password";
+        $("[name=pswreg]")[0].placeholder = "password: 6-12 characters, at least 1 letter";
     }
     if(/^(?:[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])$/.test(email)){
         counter++;
