@@ -73,15 +73,18 @@ function addMarker(position, locName, inID, start, end, eventIDMAP){
     }
     //please convert the content to the contentString here
     var contentString = '<div id="content">'+
+                            '<b>'+
                             '<div id="siteNotice">'+'</div>'+
                             '<h1 id="firstHeading" class="firstHeading">'+listType[inID].eventName+'</h1>'+
                             '<div id="bodyContent">'+
                                 '<p>'+listType[inID].brief+'</p>'+
                                 '<p>'+locName+'</p>'+
                                 '<p>Created by '+listType[inID].founderName+'</p>'+
+                                '<p>Popularity:  '+listType[inID].popularity+'</p>'+
                                 '<p>'+ start + ' - ' + end + '</p>'+
                                 button+
                             '</div>'+
+                            '</b>'+
                         '</div>';
 
     var infowindow = new google.maps.InfoWindow({

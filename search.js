@@ -24,7 +24,7 @@ function searchFilter(searchID, context){    //对第1,2,3列表进行搜索筛�
     }
     $(idFilter).each(function(){
         $(this).show();
-        if($(this).children("a").text().indexOf(context) == -1){
+        if($(this).children("a").text().toLowerCase().indexOf(context.toLowerCase()) == -1){
             $(this).hide();
         }
     });

@@ -200,7 +200,8 @@ function newLine(thisInnerID, thisEventName, thisStartTime, thisEndTime, thisLoc
                     ' onclick="addSite('+thisLocationID+','+thisInnerID+',\''+thisStartTime+'\',\''+thisEndTime+'\''+',\''+hereID+'\''+')"'+   //於：修改了函数参数
                     ' onmouseover="thisTime('+'\''+hereID+'\''+')"'+
                     ' onmouseout="godef('+'\''+hereID+'\''+')"'+                //於：你在这里传入的是M+ID，上面函数直接调用了ID，这里参数加上了‘’
-                    ' ondblclick= "deleEvent(' + thisInnerID + ')">'+           //上面函数也改了，去掉了M
+                    //' ondblclick= "deleEvent(' + thisInnerID + ')">'+           //上面函数也改了，去掉了M
+                    '>'+
                     thisEventName+'</a>'+
                     /*'<br>Start: '+'<div id="startTime">'+thisStartTime+'</div>'+    //於：添加了div和id用于时间筛选
                     '<br>End: '+'<div id="endTime">'+thisEndTime+'</div>'+'</a>'+*/     //注释掉的部分用于直接显示时间，不用鼠标移上去（待定）
