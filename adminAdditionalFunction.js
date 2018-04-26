@@ -9,7 +9,7 @@ function uselessFunction(){
 function setCreationMinMaxDate(type){
 	if(type=="from"){
 		//make sure the end time is later than start time, if the start time is input first
-        $("#endTime").attr('min',$("#startTime").val());
+		$("#endTime").attr('min',$("#startTime").val());
     }else if (type == "to"){
     	//make sure the start time is earlier than end time, if the end time is input first
 		$("#startTime").attr('max',$("#endTime").val());

@@ -66,13 +66,13 @@ function signUp() {
         if (!email) $("[name=emailreg]")[0].placeholder = "you did not enter email address";
         return;
     } 
-    if(/^[0-9a-zA-Z_.-]+$/.test(name)){
+    if(/^[0-9a-zA-Z]+$/.test(name)){
         counter++;
     }else{
         $("[name=unamereg]")[0].value = ""; 
         $("[name=unamereg]")[0].placeholder = "invalid username";
     }
-	if(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,12}/.test(psw)){
+	if(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/.test(psw)){
         counter++;
     }else{
         $("[name=pswreg]")[0].value = ""; 
