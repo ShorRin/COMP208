@@ -6,12 +6,12 @@ function closeUp() {
     var name = document.getElementById("unamein").value;
     var psw = document.getElementById("pswin").value;
     //the name is in name and password is in psw, call php to verify the identity
-    if (name != '' && psw != '') {
+    if (name && psw) {
         $("#loginButton").text("Connecting...");
         $.post("https://aooblog.me/COMP208/PHP/LogIn.php", {username: name, password: psw}, function (response) {
             console.log(response);
             if (response.includes("100")) {       //response返回字符串格式为000+" 0/1 "+userID or 100+" 0/1 "+userID
-                alert("Log in successfully!");
+                alertSweet("Login", "Success");
                 thisUserID = response.substring(6);
                 thisUserName = name;
                 thisAuthority = response.substring(4, 5);
@@ -42,10 +42,10 @@ function closeUp() {
             }
         });
     } else {
-        if (name == '') {
+        if (name) {
             document.getElementsByName('unamein')[0].placeholder = "you did not enter username";
         }
-        if (psw == '') {
+        if (psw) {
             document.getElementsByName('pswin')[0].placeholder = "you did not enter password";
         }
         //this line only for test
@@ -72,7 +72,7 @@ function signUp() {
         $("[name=unamereg]")[0].value = ""; 
         $("[name=unamereg]")[0].placeholder = "username: 6-12 characters";
     }
-	if(/^[a-zA-Z]{1,}/.test(psw)&&/^[0-9a-zA-Z]+$/.test(psw)&&psw.length > 5 &&psw.length<13){
+	if(/[a-zA-Z]{1,}/.test(psw)&&/^[0-9a-zA-Z]+$/.test(psw)&&psw.length > 5 &&psw.length<13){
         counter++;
     }else{
         $("[name=pswreg]")[0].value = ""; 
@@ -84,7 +84,7 @@ function signUp() {
         $("[name=emailreg]")[0].value = ""; $("[name=emailreg]")[0].placeholder = "invalid email address";
     }
 	
-	if(counter == 3){
+	if(counter === 3){
     $("#signupButton").text("Connecting...");
     $.post("https://aooblog.me/COMP208/PHP/SignUp.php", {
         username: name,
@@ -97,16 +97,16 @@ function signUp() {
         else if (response.includes("402"))
             signUpFail(response);
         else
-            alert(response);
+            warnSweet(response);
     });
 	}
 
     /*Local Method for if sign successfully*/
     function signUpSuccess() {
-        alert("Register succeed!");
-        thisUserName = name;
-        //setTimeout("document.getElementById(\"login\").style.display = \"none\"", 3000);
-        location.reload();
+        signUpAlertSweet(function(){
+            thisUserName = name;
+            location.reload();
+        });
     }
 
     /*Local Method for the condition if the sign is failed*/
@@ -160,7 +160,7 @@ function initialiseAll() {
         $(".tablinks#popularListButton").attr("class", "tablinks active");
         $("#popularListMenu").css("display", "block");
     }
-    if (thisAuthority == "0") {
+    if (thisAuthority === "0") {
         $("#createdEventsButton").remove();
         $("#createNewEventButton").remove();
     }
@@ -191,17 +191,17 @@ function sendMail() {
 
     function changeSuccess(response) {
         if(response.includes("TRUE"))
-            alert("Please waiting for the email");
+            alertSweet("Sending","Please waiting for the email");
         else if (response.includes("FALSE"))
-            alert("Please try again later");
+            warnSweet("Please try again later");
 
     }
     function changeFail(response) {
         if(response.includes("EMAIL"))
-            alert("Wrong Email");
+            warnSweet("Wrong Email Address!");
         else if (response.includes("USERNAME"))
-            alert("DO not Exist");
+            warnSweet("Username Don't Exist!");
         else
-            alert(response);
+            warnSweet(response);
     }
 }

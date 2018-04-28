@@ -292,7 +292,7 @@ div#startTime{float: right;}
  
 div#endTime{float: right;}
  
-table#dateFilter {
+table.dateFilter {
     width: 50%;
     /*height: 66px;*/   /*自动调整高度，不需要设置固定高度*/
     padding-left: 32px;

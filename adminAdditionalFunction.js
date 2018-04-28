@@ -117,8 +117,7 @@ function createNewEvent(thisFounderName){
 			{founderName: thisFounderName, eventName: eventName, type: type, startTime: startTime, 
 				endTime: endTime, locationID: locationID,  brief: brief},
 				function(data){
-					console.log(data) //debug
-					alert(data);
+					warnSweet(data);
 					$("#creationForm")[0].reset();  
 					hideCreationWindow();
 		});

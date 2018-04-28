@@ -143,7 +143,7 @@ class DatabaseHandler
                 throw new PDOException("USERNAME");
             $result = $stmt->fetch();
             if($result["email"]!=$email)
-                throw new PDOException("$email\n$result[email]");
+                throw new PDOException("EMAIL");
 
             $sql = "UPDATE user SET password= ? 
                     WHERE user.userID = $result[userID]";
