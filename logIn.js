@@ -92,12 +92,17 @@ function signUp() {
         email: email,
         programme: programme
     }, function (response) {
-        if (response.includes("100"))
+        if (response.includes("100")){
             signUpSuccess();
-        else if (response.includes("402"))
+        }
+        else if (response.includes("402")){
             signUpFail(response);
-        else
-            warnSweet(response);
+        }
+        else{
+             warnSweet(response);
+        }
+        $.post("https://aooblog.me/COMP208/PHP/AddEventsByProgramme.php", {userID:thisUserID}, function (response){
+        }); 
     });
 	}
 
@@ -191,7 +196,7 @@ function sendMail() {
 
     function changeSuccess(response) {
         if(response.includes("TRUE"))
-            alertSweet("Sending","Please waiting for the email");
+            waitSweet("Sending","Please waiting for the email", 5000);
         else if (response.includes("FALSE"))
             warnSweet("Please try again later");
 

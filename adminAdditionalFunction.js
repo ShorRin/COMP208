@@ -17,7 +17,7 @@ function setCreationMinMaxDate(type){
 }
 
 
-function delCreatedEvent(eventID){
+/*function delCreatedEvent(eventID){
 	$.post("https://aooblog.me/COMP208/PHP/DelCreatedEvent.php",
     	{eventID: eventID},
     		function(data){
@@ -25,8 +25,7 @@ function delCreatedEvent(eventID){
     			console.log(data) //debug
     			// $("#creationResponse").html(data);
     	});
-}
-//
+}*/
 
 function popUpCreationWindow(){
 	$("#creationWindow").css("display","block");
@@ -41,13 +40,11 @@ function hideCreationWindow(){
 function popUpCreatedEventsWindow(){
 	$("#createdEventsWindow").css("display","block");
 	$("#fade1").css("display","block");			    	
-	console.log("call popUpCreatedEventsWindow(), ")
 }
 
 function hideCreatedEventsWindow(){
 	$("#createdEventsWindow").css("display","none");
 	$("#fade1").css("display","none");	
-	console.log("call hideCreatedEventsWindow()")
 }
 
 // updated by Yuhao Wu, 23/04
@@ -139,15 +136,11 @@ function isInputValid(input){
 
 
 function showLocationOptions(){
-	console.log("showalllocation");
 	$.post("https://aooblog.me/COMP208/PHP/ShowAllLocationID.php",
 		function(data){
-			console.log(data);
 			$("#selectLocation").html(data);
 		});
 }
-
-
 
 function getCreatedEventList(){
 	$.post("https://aooblog.me/COMP208/PHP/GetCreatedEventList.php",
