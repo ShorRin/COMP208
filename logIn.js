@@ -94,6 +94,11 @@ function signUp() {
     }, function (response) {
         if (response.includes("100")){
             signUpSuccess();
+            var tempUserID = response.split(" ")[2];
+            console.log(response);
+            console.log(tempUserID);
+            $.post("https://aooblog.me/COMP208/PHP/AddEventsByProgramme.php", {userID:tempUserID}, function (response){
+        }); 
         }
         else if (response.includes("402")){
             signUpFail(response);
@@ -101,8 +106,6 @@ function signUp() {
         else{
              warnSweet(response);
         }
-        $.post("https://aooblog.me/COMP208/PHP/AddEventsByProgramme.php", {userID:thisUserID}, function (response){
-        }); 
     });
 	}
 

@@ -82,7 +82,7 @@ class DatabaseHandler
 
             $this->pdoForCOMP208->commit();
             $this->pdoForUserInfo->commit();
-            $this->querySuccessfully("true");
+            $this->querySuccessfully("true ".$newID);
         } catch (PDOException $e) {
             $this->duplicatedParams($e->getMessage());
             $this->pdoForCOMP208->rollBack();
