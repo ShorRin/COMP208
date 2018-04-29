@@ -6,17 +6,6 @@ function alertSweet(title, text) {
     });
 }
 
-function waitSweet(title, text, time, method){
-    method = method || function(){/*Do Nothing*/};
-    swal({
-        title: title,
-        text: text,
-        type: "success",
-        showLoaderOnConfirm: true,
-        timer: time,
-    },method);
-}
-
 function warnSweet(text) {
     swal({
         title: "WARN",
@@ -90,6 +79,7 @@ function synAlertSweet(title, text, method) {
         type: "info",
         showCancelButton: true,
         closeOnConfirm: false,
+        closeOnCancel: false,
         showLoaderOnConfirm: true,
     }, method);
 }
@@ -105,7 +95,14 @@ function logoutSweet(exitFunction) {
         },
         function (isConfirm) {
             if (isConfirm) {
-                waitSweet("Exit", "Your will exit!", 1000, exitFunction);
+                swal({
+                        title: "Exit!?",
+                        text: "Your will exit!",
+                        type: "success",
+                        showConfirmButton: false,
+                        timer: 1000,
+                    }, exitFunction
+                );
             } else {
                 swal("Cancel!", ":)", "error");
             }

@@ -17,7 +17,7 @@ function setCreationMinMaxDate(type){
 }
 
 
-/*function delCreatedEvent(eventID){
+function delCreatedEvent(eventID){
 	$.post("https://aooblog.me/COMP208/PHP/DelCreatedEvent.php",
     	{eventID: eventID},
     		function(data){
@@ -25,7 +25,7 @@ function setCreationMinMaxDate(type){
     			console.log(data) //debug
     			// $("#creationResponse").html(data);
     	});
-}*/
+}
 
 function popUpCreationWindow(){
 	$("#creationWindow").css("display","block");
@@ -114,7 +114,7 @@ function createNewEvent(thisFounderName){
 			{founderName: thisFounderName, eventName: eventName, type: type, startTime: startTime, 
 				endTime: endTime, locationID: locationID,  brief: brief},
 				function(data){
-					warnSweet(data);
+					alertSweet(data);
 					$("#creationForm")[0].reset();  
 					hideCreationWindow();
 		});

@@ -5,9 +5,9 @@
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="indexstyle.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert-dev.js"></script>
-    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
     <script src="alert.js"></script>
     <script src=loadMap.js></script>
     <script src=toolbarControl.js></script>
@@ -26,8 +26,11 @@
     <script src=cookie.js></script>
     <script async defer
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBn_FQZui6V8Xe-70bjODMQc93WcWRm_CQ&callback=initMap"></script>
+    <script>var $ = jQuery.noConflict(); </script>
 </head>
+
 <body>
+
 <div id="login">
     <script>
         if (getCookie("userID") != undefined && getCookie("userID") != "null") {    //於：如果cookie存在，不需要登录
@@ -48,6 +51,7 @@
             <select class="courses" id="css">
                 <script>
                     $.get("https://aooblog.me/COMP208/PHP/getAllProgramme.php", function (data) {
+                        console.log(data);
                         let selectMenu = $("#css");
                         let allProgramme = JSON.parse(data);
                         let num = allProgramme.length;
