@@ -52,8 +52,8 @@
                    name="pswreg"/>
             <input type="text" placeholder="email address" id="emailreg" name="emailreg"/>
             <select class="courses" id="css">
+                <option value='' style='display:none;'>Choose your programme...</option>
                 <script>
-                    <option value='' style='display:none;'>Choose your programme...</option>
                     $.get("https://aooblog.me/COMP208/PHP/getAllProgramme.php", function (data) {
                         console.log(data);
                         let selectMenu = $("#css");
