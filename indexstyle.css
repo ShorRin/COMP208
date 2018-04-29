@@ -342,6 +342,9 @@ ul.popularList{
     margin-top: 0px;
     font-size: 25px;
 }
+#showManualButton{
+    width:110px;
+}
 /*---------wu--------------*/
 table.hovertable {
     font-family: verdana,arial,sans-serif;
