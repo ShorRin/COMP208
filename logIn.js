@@ -148,7 +148,7 @@ function initialiseAll() {
     showAllEventsList();
     showPopularList();
     if (getCookie('isSideNavOpen') == 'null' || getCookie('isSideNavOpen') == undefined) {
-        setCookie('isSideNavOpen', 'false');
+        setCookie('isSideNavOpen', 'true');
     }
     if (getCookie('currentMenu') == 'null' || getCookie('currentMenu') == undefined) {
         setCookie('currentMenu', 'myListMenu');

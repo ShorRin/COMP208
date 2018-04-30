@@ -67,4 +67,3 @@ function refresh(){
     //initMap();
     clearMarkers();
 }
-

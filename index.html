@@ -45,6 +45,9 @@
             $("#login").show();
         }
     </script>
+    <div class="username">
+        <a href="UserManual.pdf" target="blank"><button id="showManualButton">Manual</button></a>
+    </div>
     <div class="form">
         <div class="register-form" id="2" style="display: none;">
             <input type="text" placeholder="username: 6-12 characters" id="unamereg" name="unamereg"/>
@@ -141,7 +144,6 @@
 <div class="username">
     <button id="createNewEventButton" onclick="popUpCreationWindow()">+</button>
     <button id="createdEventsButton" onclick="popUpCreatedEventsWindow(); getCreatedEventList()">Created Events</button>
-    <button id="showManualButton" onclick="showManual()">Manual</button>
     <button onclick="logOut()" class="logout" onmouseover="showTex()" onmouseout="hideTex()" id="logout">
         <script>
             document.write(thisUserName);
