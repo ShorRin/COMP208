@@ -6,6 +6,17 @@ function alertSweet(title, text) {
     });
 }
 
+function waitSweet(title, text, time, method){
+    method = method || function(){/*Do Nothing*/};
+    swal({
+        title: title,
+        text: text,
+        type: "success",
+        showLoaderOnConfirm: true,
+        timer: time,
+    },method);
+}
+
 function warnSweet(text) {
     swal({
         title: "WARN",
@@ -23,53 +34,57 @@ function signUpAlertSweet(afterSignUp) {
             confirmButtonText: "Show User Guild",
             closeOnConfirm: false,
             type: "success",
-        }, function () {
-            swal({
-                title: "User Guild",
-                text: showUserGuild(),
-                type: "info",
-                html: true,
-            }, afterSignUp);
+        }, function (){
+            alertHtmlSweet("UserGuild", showUserGuild(), afterSignUp);
         }
     );
 
     function showUserGuild() {
         return "<textarea readonly style='width:100%; height:300px; overflow:scroll';>\n" +
-            "1. Log in\n" +
-            "    If you have had an account, you can log in the system by entering valid username and password. There will be a welcome window if you log in the system successfully.\n" +
+            "1. Log in/log out\n" +
             "\n" +
             "2. Open list menu\n" +
-            "    After logging in to the system, you can click the button at the left of the application to open the menu. The menu consists of three parts: my list, events list and popular list. Each list may contain some events. The menu also has a date filter and a search box, which will help you to find the event you want.\n" +
+            "   It contains: my list, events list and popular list\n" +
             "\n" +
             "3. Search using search box and date filter\n" +
-            "    You can find events you want by setting the value of date filter and enter text into search box. Those events whose start time is not in the range of date filter and whose name does not contain text in the search box will be hidden. Therefore, you can find the event you want quickly. All three list (my list, events list and popular list) can use this function. Date filter and search box in each list is independent so they will not disturb each other.\n" +
+            "   Please set the value of date filter and enter text into search box.   \n" +
             "\n" +
-            "4. Show event details on map\n" +
-            "    For each event tab in list menu, you can show details of this event by clicking the event tab. There will be a pin on the map to show the location of this event. You can click the pin to open a box. This box will contain all information about this event. You can also add/remove this event to/from your list using the button in this box.\n" +
+            "4. Show event details on map(Just click the event tab )\n" +
+            "   The pin on the map to show the location of this event.   \n" +
+            "   You can also add/remove this event to/from your list using the button in this box.\n" +
             "\n" +
-            "5. Check my list\n" +
-            "    You can check my list by moving you mouse on the “MYLIST” tab at the top of list menu. My list will show all events that have been added to your personal list. These events are ordered by start time. You can check the time of an event by put your mouse on this event tab. Search box and date filter is available in this list and you can also click the event tab to call “show event details on map” function.\n" +
+            "6. Check my list/all events list\n" +
+            "   Your events are ordered by start time by default and date filter and the search box are available.\n" +
             "\n" +
-            "6. Check events list\n" +
-            "    You can check events list by moving you mouse on the “ALL EVENTS” tab at the top of list menu. Event list contains all events that have not been added to your list. These events are ordered by start time. You can check the time of an event by put your mouse on this event tab. Search box and date filter is available in this list and you can also click the event tab to call “show event details on map” function.\n" +
+            "7. Show event details on map\n" +
+            "   You can click the event tab to call this function. Available for events from all these lists.\n" +
             "\n" +
-            "7. Check popular list\n" +
-            "    You can check popular list by moving you mouse on the “POPULAR” tab at the top of list menu. Popular list contains all events that have not been added to your list but these events are ordered by popularity. This list is more likely to show those events which are popular among users. Search box and date filter is available in this list and you can also click the event tab to call “show event details on map” function.\n" +
+            "8. Check popular list\n" +
+            "   Popular list contains all events that have not been added to your list ordered by popularity.\n" +
             "\n" +
-            "8. Log out\n" +
-            "    You can log out by clicking the username tab at the top-right of the interface. After logging out the system, the interface will return the log in page and you need to log in again to use this system.\n" +
+            "9. Get current time\n" +
+            "   More detail about current date by clicking that current time tab.\n" +
             "\n" +
-            "9. Check current time\n" +
-            "    You can check current time at the bottom-right of the interface. You can also find more detail about current date by clicking that current time tab.\n" +
-            "\n" +
-            "10. Check current location\n" +
-            "    This function will find the rough location of current user using html5 technology and show this location on the map. This function depends on html5 so only web terminal can use it. You can use this function by clicking the “LOCATION” button at the bottom-right of the interface.\n" +
+            "10. Get current location\n" +
+            "   Click the “LOCATION” button at the bottom-right of the interface to get your location.\n" +
             "\n" +
             "11. Refresh lists and map\n" +
-            "    You can reload all three lists and clear all pins on the map by using this function. You can call this function by clicking the “REFRESH” tab at the bottom-right of the interface.\n" +
-            "</input>";
+            "   Refresh all three lists and clear all pins on the map." +
+            "</textarea>";
     }
 
+}
+
+function alertHtmlSweet(title, text, afterBehavior) {
+    swal({
+        imageUrl: 'https://unsplash.it/400/200',
+        imageWidth: 200,
+        imageHeight: 200,
+        animation: false,
+        title: title,
+        type: "info",
+        html: text,
+    }, afterBehavior);
 }
 
 function synAlertSweet(title, text, method) {
@@ -79,7 +94,6 @@ function synAlertSweet(title, text, method) {
         type: "info",
         showCancelButton: true,
         closeOnConfirm: false,
-        closeOnCancel: false,
         showLoaderOnConfirm: true,
     }, method);
 }
@@ -95,14 +109,7 @@ function logoutSweet(exitFunction) {
         },
         function (isConfirm) {
             if (isConfirm) {
-                swal({
-                        title: "Exit!?",
-                        text: "Your will exit!",
-                        type: "success",
-                        showConfirmButton: false,
-                        timer: 1000,
-                    }, exitFunction
-                );
+                waitSweet("Exit", "Your will exit!", 1000, exitFunction);
             } else {
                 swal("Cancel!", ":)", "error");
             }
