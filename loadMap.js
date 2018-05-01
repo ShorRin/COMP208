@@ -128,5 +128,7 @@ function viewLocation(){
     } else {
         // Browser doesn't support Geolocation
         handleLocationError(false, infoWindow, map.getCenter());
+        warnSweet("Cannot obtain your location!\nPlease check your location privacy setting!");
+
     }
 }

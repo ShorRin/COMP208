@@ -6,15 +6,14 @@ function alertSweet(title, text) {
     });
 }
 
-function waitSweet(title, text, time, method){
-    method = method || function(){/*Do Nothing*/};
+function waitSweet(title, text, time){
     swal({
         title: title,
         text: text,
-        type: "success",
-        showLoaderOnConfirm: true,
         timer: time,
-    },method);
+        showConfirmButton: false,
+    });
+
 }
 
 function warnSweet(text) {
@@ -31,15 +30,21 @@ function signUpAlertSweet(afterSignUp) {
     swal({
             title: "Success",
             text: "You has already Signed Up!",
-            confirmButtonText: "Show User Guild",
+            confirmButtonText: "Show User Guide",
             closeOnConfirm: false,
+            html: true,
             type: "success",
-        }, function (){
-            alertHtmlSweet("UserGuild", showUserGuild(), afterSignUp);
+        }, function () {
+            swal({
+                title: "User Guide",
+                imageUrl: "assets/book.png",
+                text: showUserGuide(),
+                html: true,
+            }, afterSignUp);
         }
     );
 
-    function showUserGuild() {
+    function showUserGuide() {
         return "<textarea readonly style='width:100%; height:300px; overflow:scroll';>\n" +
             "1. Log in/log out\n" +
             "\n" +
@@ -70,21 +75,15 @@ function signUpAlertSweet(afterSignUp) {
             "\n" +
             "11. Refresh lists and map\n" +
             "   Refresh all three lists and clear all pins on the map." +
+            "\n" +
+            "12. Create new events\n" +
+            "   Event managers will have an extra button “+” at the top-right of the interface"+
+            "\n" +
+            "13. Check created events\n" +
+            "   Event managers have another extra button “Created Events” near the “+” button."+
             "</textarea>";
     }
 
-}
-
-function alertHtmlSweet(title, text, afterBehavior) {
-    swal({
-        imageUrl: 'https://unsplash.it/400/200',
-        imageWidth: 200,
-        imageHeight: 200,
-        animation: false,
-        title: title,
-        type: "info",
-        html: text,
-    }, afterBehavior);
 }
 
 function synAlertSweet(title, text, method) {
@@ -104,12 +103,12 @@ function logoutSweet(exitFunction) {
             text: "Do you want to exit?",
             type: "warning",
             showCancelButton: true,
-            closeOnConfirm: false,
+            closeOnConfirm: true,
             closeOnCancel: false,
         },
         function (isConfirm) {
             if (isConfirm) {
-                waitSweet("Exit", "Your will exit!", 1000, exitFunction);
+                exitFunction();
             } else {
                 swal("Cancel!", ":)", "error");
             }

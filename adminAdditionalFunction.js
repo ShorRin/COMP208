@@ -51,50 +51,50 @@ function hideCreatedEventsWindow(){
 function createNewEvent(thisFounderName){
 	var eventName 
 	if (isInputValid($("#eventName").val())){ 
-		$("#eventNameValidation").html("")
+		$("#eventNameValidation").html("");
 		eventName = $("#eventName").val();
 	}	
 	else
-		$("#eventNameValidation").html("* Event name cannot be empty")
+		$("#eventNameValidation").html("* Event name cannot be empty");
     
     var type
     if(document.querySelector('input[name="eventType"]:checked') != null){ // radio button VS null
     	type = document.querySelector('input[name="eventType"]:checked').value;// radio button: checked prop.
-    	$("#eventTypeValidation").html("")
+    	$("#eventTypeValidation").html("");
     }
     else
-		$("#eventTypeValidation").html("* Event type cannot be empty")
+		$("#eventTypeValidation").html("* Event type cannot be empty");
 
     var startTime
     if($("#startTime").val() != ""){
     	startTime= $("#startTime").val();
-    	$("#startTimeValidation").html("")
+    	$("#startTimeValidation").html("");
     }
     else
-    	$("#startTimeValidation").html("* Start time should be dd/mm/yy hh:mm")
+    	$("#startTimeValidation").html("* Start time should be dd/mm/yy hh:mm");
 
     var endTime 
     if($("#endTime").val() != ""){
     	endTime= $("#endTime").val();
-    	$("#endTimeValidation").html("")
+    	$("#endTimeValidation").html("");
     }
     else
-    	$("#endTimeValidation").html("* End time should be dd/mm/yy hh:mm")
+    	$("#endTimeValidation").html("* End time should be dd/mm/yy hh:mm");
 
     
   	
     var locationID;
     if($("#selectLocation").val() != null){
     	locationID = $("#selectLocation").val();
-    	$("#locationValidation").html("")
+    	$("#locationValidation").html("");
     }
     else
-    	$("#locationValidation").html("* location should not be empty")
+    	$("#locationValidation").html("* location should not be empty");
     
     var brief;
     if(isInputValid($("#eventBrief").val())){
-    	$("#briefValidation").html("")
-    	brief = $("#eventBrief").val()
+    	$("#briefValidation").html("");
+    	brief = $("#eventBrief").val();
     }
     else{
 		$("#briefValidation").html("* Event brief cannot be empty and word count cannot exceed 100 words");
@@ -105,7 +105,7 @@ function createNewEvent(thisFounderName){
 		$("#endTime").val("");
 		return;
 	}else{
-		$("#endTimeValidation").html("")
+		$("#endTimeValidation").html("");
 		}
 
     if(eventName && type && startTime && endTime && locationID && brief){
@@ -117,6 +117,8 @@ function createNewEvent(thisFounderName){
 					alertSweet(data);
 					$("#creationForm")[0].reset();  
 					hideCreationWindow();
+					$("#endTime").attr('min','');
+					$("#startTime").attr('max','');
 		});
 		
 	}
