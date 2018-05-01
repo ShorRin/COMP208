@@ -100,13 +100,13 @@
     <form method="post" id="creationForm" name="form">
         <h2>Create new event</h2>
         Event Name: <br>
-        <input type="text" name="eventName" id="eventName" size="40" placeholder="<= 40 words"><br>
+        <input type="text" name="eventName" id="eventName" size="40" placeholder="<= 40 words"/><br>
         <span class="error" id="eventNameValidation"></span><br>
 
         Event Type:<br>
-        <input type="radio" name="eventType" id="academicType" value="academic">
+        <input type="radio" name="eventType" id="academicType" value="academic"/>
         <label for="academicType">Academic</label>
-        <input type="radio" name="eventType" id="nonacademicType" value="non-academic">
+        <input type="radio" name="eventType" id="nonacademicType" value="non-academic"/>
         <label for="nonacademicType">Non-academic</label>
         <br>
         <span class="error" id="eventTypeValidation"></span><br>
@@ -135,7 +135,7 @@
         <span>(Your name will be used as the founder)</span><br>
         <p id="creationResponse"></p>
         <button type="button" onclick="createNewEvent(thisUserName);"> Create</button>
-        <input type="reset" value="Reset">
+        <input type="reset" value="Reset"/>
 
     </form>
 </div>
